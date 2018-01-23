@@ -24,20 +24,32 @@ public:
                         sf::Vertex(sf::Vector2f((int)(100+100*(arete->fin->clef % 2)), (int)(100+100*(arete->fin->clef /2))))
                 };
         draw(line, 2, sf::Lines);*/
-        int x1 = 100+100*(arete->debut->clef % 2), x2 = 100+100*(arete->debut->clef /2), y1 = 100+100*(arete->fin->clef % 2), y2 = 100+100*(arete->fin->clef /2);
-        sf::RectangleShape A(sf::Vector2f(20, sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))));
+        int x1 = 100+100*(arete->debut->clef / 5), y1 = 100+100*(arete->debut->clef % 5), x2 = 100+100*(arete->fin->clef / 5), y2 = 100+100*(arete->fin->clef % 5);
+        sf::RectangleShape A(sf::Vector2f(22, sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))));
+        A.setOutlineThickness(8);
+        A.setOutlineColor(sf::Color::Cyan);
+        A.setFillColor(sf::Color::Black);
         A.rotate(45*arete->v);
-        A.setPosition(x1-25, y1-25);
+        if (arete->v == 0)
+            A.setPosition(x1-15, y1);
+        else if (arete->v == -3)
+            A.setPosition(x1, y1+15);
+        else if (arete->v == -2)
+            A.setPosition(x1, y1+15);
+        else if (arete->v == -1)
+            A.setPosition(x1-15, y1);
         draw(A);
-        cout << A.getPosition().x <<  " " <<A.getPosition().y << endl;
         return true;
     }
 
     bool dessine(Sommet<S> *sommet)
     {
-        sf::CircleShape circle(25, 100);
-        circle.setPosition((100*(sommet->clef / 2))-circle.getRadius()+100, 100*((sommet->clef % 2))-circle.getRadius()+100);
-        draw(circle);
+        sf::CircleShape C(30, 100);
+        C.setPosition((100*(sommet->clef / 5))-C.getRadius()+100, 100*((sommet->clef % 5))-C.getRadius()+100);
+        C.setOutlineThickness(10);
+        C.setOutlineColor(sf::Color::Cyan);
+        C.setFillColor(sf::Color::Black);
+        draw(C);
         return true;
     }
 };
