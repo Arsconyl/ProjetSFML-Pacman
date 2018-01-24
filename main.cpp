@@ -7,21 +7,16 @@ L'info associée aux arêtes est un char     (par exemple)
 
 */
 #include <iostream>
-#include <string>
-#include "Graphe.h"
-#include "FenetreSFML.h"
+#include "Fenetre/Graphe.h"
 
 using namespace std;
 int main()
 {
-    char ch;
-
-
     //Graphe<char, string> g2;			// pour vérifier que l'opérateur = et que le destructeur fonctionnent bien
 
 
     Graphe<int,int> g1;	// création à vide
-    Sommet<int> * s0, *s1, *s2, *s3;
+    //Sommet<int> * s0, *s1, *s2, *s3;
     Sommet<int> *S[25];
 
     //------------------ on insère des nouveaux sommets isolés --------------------

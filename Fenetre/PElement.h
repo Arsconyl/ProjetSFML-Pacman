@@ -5,7 +5,7 @@
 #ifndef UNTITLED_PELEMENT_H
 #define UNTITLED_PELEMENT_H
 #include <string>
-#include <stdlib.h>
+#include <cstdlib>
 #include <sstream>
 
 using namespace std;
@@ -35,9 +35,9 @@ public:
     Le plus simple est d'utiliser un ostringstream intermédiaire.
     On suppose que l'opérateur << d'écriture sur un flux est défini pour la classe T.*/
     static const string toString(const PElement<T> * p,
-                                 char * debut="( ",
-                                 char * separateur = ", ",
-                                 char * fin=")")
+                                 string debut="( ",
+                                 string separateur = ", ",
+                                 string fin=")")
     {
         std::ostringstream o;
         o << debut;

@@ -5,17 +5,18 @@
 #ifndef GRAPHES_FENETRESFML_H
 #define GRAPHES_FENETRESFML_H
 
-#include <math.h>
+#include <cmath>
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <cmath>
 
 
 template<class T, class S>
 class FenetreSFML:public sf::RenderWindow
 {
 public:
-    FenetreSFML():RenderWindow(sf::VideoMode(640, 720), "Graphe"){}
+    FenetreSFML():RenderWindow(sf::VideoMode(640, 720), "PacmanSFML"){}
     bool dessine(Arete<T, S> *arete)
     {
         /*sf::Vertex line[] =
@@ -24,18 +25,24 @@ public:
                         sf::Vertex(sf::Vector2f((int)(100+100*(arete->fin->clef % 2)), (int)(100+100*(arete->fin->clef /2))))
                 };
         draw(line, 2, sf::Lines);*/
+        sf::Texture Tligne;
+        if (!Tligne.loadFromFile("Sprite_Ligne.png"))
+        {
+            Erreur("Chargement ligne");
+        }
         int x1 = 100+100*(arete->debut->clef / 5), y1 = 100+100*(arete->debut->clef % 5), x2 = 100+100*(arete->fin->clef / 5), y2 = 100+100*(arete->fin->clef % 5);
-        sf::RectangleShape A(sf::Vector2f(22, sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))));
-        A.setOutlineThickness(8);
+        sf::RectangleShape A(sf::Vector2f(20, sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))));
         A.setOutlineColor(sf::Color::Cyan);
+        A.setOutlineThickness(8);
         A.setFillColor(sf::Color::Black);
+        //A.setTexture(&Tligne);
         A.rotate(45*arete->v);
         if (arete->v == 0)
-            A.setPosition(x1-15, y1);
+            A.setPosition(x1-10, y1);
         else if (arete->v == -3)
             A.setPosition(x1, y1+15);
         else if (arete->v == -2)
-            A.setPosition(x1, y1+15);
+            A.setPosition(x1, y1+10);
         else if (arete->v == -1)
             A.setPosition(x1-15, y1);
         draw(A);
