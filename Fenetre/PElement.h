@@ -120,13 +120,12 @@ public:
      * En sortie l vaut NULL. Ne fait rien si l vaut NULL à l'appel.*/
     static void efface2(PElement<T>* & l)
     {
-        if (l != NULL)
+        if (l!=NULL)
         {
-            if(l->suivant != nullptr)
-            {
-                efface2(l->suivant);
-                delete(l);
-            }
+            delete &l->valeur;
+            efface2(l->suivant);
+            delete l;
+            l = NULL;
         }
     }
 
@@ -134,26 +133,22 @@ public:
      * Réalise donc une copie partageant les données *v avec l.*/
     static PElement<T> * copie1( PElement<T> * l)
     {
-        if(l != NULL)
-            return new PElement<T>(l->valeur, copie1(l->suivant));
+        if(l!=NULL)
+            return new PElement<T>(l->valeur,copie2(l->suivant));
+        else
+            return NULL;
     }
 
     /*réalise une copie de la liste l en recopiant toutes les données *v.
      * Réalise donc une copie ne partageant aucune  donnée  avec l.*/
     static PElement<T> * copie2( PElement<T> * l)
     {
-        if(l != NULL)
-        {
-            T *n;
-            n = l->valeur;
-            return new PElement<T>(n, copie2(l->suivant));
-        }
+        if(l!=NULL)
+            return new PElement<T>(new T(*(l->valeur)),copie2(l->suivant));
+        else
+            return NULL;
     }
 
-    /*Réalise une copie de la liste l en recopiant toutes les données *v à l'aide de la méthode v->copie().
-     * Réalise donc une copie ne partageant aucune  donnée  avec l.
-     * Et si la classe T possède la méthode virtuelle copie(), l peut être hétérogène et la méthode copie3 produit une copie de cette liste hétérogène.*/
-    static PElement<T> * copie3( PElement<T> * l);
 
     /*recherche si a appartient à l. renvoie un pointeur sur le maillon de l contenant a.
      * Renvoie NULL si a n'appartient pas à l.*/
