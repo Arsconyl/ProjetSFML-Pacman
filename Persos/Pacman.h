@@ -8,19 +8,20 @@
 #include "Personnage.h"
 
 
-class Pacman:public Personnage
+template<class S, class T>
+class Pacman : public Personnage<S, T>
 {
 public:
-    Pacman(Sommet position, bool etat, string nom);
-    Pacman(Pacman &p);
-    ~Pacman ();
+    Pacman<S, T>(Sommet<T> position, string image, string nom, int etat=1);
+    Pacman<S, T>(Pacman &p);
+    virtual ~Pacman ();
 };
-
-Pacman::Pacman (Sommet position, bool etat, string nom) : Personnage(position, etat, nom) {}
-
-Pacman::Pacman (Pacman &p):Personnage(p) {}
-
-Pacman::~Pacman () {}
+template<class S, class T>
+Pacman<S, T>::Pacman(Pacman<S, T> &p):Personnage<S, T>(p){}
+template<class S, class T>
+Pacman<S, T>::Pacman(Sommet<T> position, string image, string nom, int etat):Personnage<S, T>(position, image, nom, etat){}
+template<class S, class T>
+Pacman<S, T>::~Pacman(){}
 
 
 #endif //GRAPHES_PACMAN_H

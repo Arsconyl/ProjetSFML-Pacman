@@ -9,19 +9,20 @@
 #include "Personnage.h"
 
 
-class Fantome:public Personnage
+template<class S, class T>
+class Fantome : public Personnage<S, T>
 {
 public:
-    Fantome(Sommet position, bool etat, string nom);
-    Fantome(Fantome &p);
-    ~Fantome ();
+    Fantome<S, T>(Sommet<T> position, string image, string nom, int etat=1);
+    Fantome<S, T>(Fantome &p);
+    virtual ~Fantome ();
 };
-
-Fantome::Fantome (Sommet position, bool etat, string nom) : Personnage(position, etat, nom) {}
-
-Fantome::Fantome (Fantome &p):Personnage(p) {}
-
-Fantome::~Fantome () {}
+template<class S, class T>
+Fantome<S, T>::Fantome(Fantome<S, T> &p):Personnage<S, T>(p){}
+template<class S, class T>
+Fantome<S, T>::Fantome(Sommet<T> position, string image, string nom, int etat):Personnage<S, T>(position, image, "Fantome "+nom, etat){}
+template<class S, class T>
+Fantome<S, T>::~Fantome(){}
 
 
 #endif //GRAPHES_FANTOME_H

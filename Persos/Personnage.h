@@ -5,64 +5,26 @@
 #ifndef GRAPHES_PERSONNAGE_H
 #define GRAPHES_PERSONNAGE_H
 
-#include "../Fenetre/Sommet.h"
+#include "../Graphe/Sommet.h"
 #include "../World/Thing.h"
 #include <string>
 
 using namespace std;
 
-
-class Personnage : public Thing
+template<class S, class T>
+class Personnage : public Thing<S, T>
 {
-private:
-    Sommet position;
-    bool etat;
-    string nom;
 public:
-    Personnage(Sommet position, bool etat, string nom);
-    Personnage(Personnage &p);
+    Personnage<S, T>(Sommet<T> position, string image, string nom, int etat=1);
+    Personnage<S, T>(Personnage &p);
     virtual ~Personnage ();
-
-    inline void setPosition(Sommet &pos);
-    inline void toggleEtat();
-    inline Sommet getPosition() const;
-    inline bool getEtat() const;
-    string getNom () const;
-    void setNom (const string &nom);
 };
-
-Personnage::Personnage(Personnage &p):position(p.position), etat(p.etat), nom(p.nom){}
-
-Personnage::Personnage(Sommet position, bool etat, string nom):position(position), etat(etat), nom(nom){}
-Personnage::~Personnage(){}
-inline void Personnage::setPosition(Sommet &pos)
-{
-    position = pos;
-}
-inline void Personnage::toggleEtat()
-{
-    etat = !etat;
-}
-
-void Personnage::setNom(const string &nom)
-{
-    Personnage::nom = nom;
-}
-
-inline bool Personnage::getEtat () const
-{
-    return etat;
-}
-
-inline Sommet Personnage::getPosition () const
-{
-    return position;
-}
-
-inline string Personnage::getNom () const
-{
-    return nom;
-}
+template<class S, class T>
+Personnage<S, T>::Personnage(Personnage<S, T> &p):Thing<S, T>(p){}
+template<class S, class T>
+Personnage<S, T>::Personnage(Sommet<T> position, string nom, string image, int etat):Thing<S, T>(position, image, nom, etat){}
+template<class S, class T>
+Personnage<S, T>::~Personnage(){}
 
 
 #endif //GRAPHES_PERSONNAGE_H
