@@ -6,12 +6,13 @@
 #define GRAPHES_PERSONNAGE_H
 
 #include "../Fenetre/Sommet.h"
+#include "../World/Thing.h"
 #include <string>
 
 using namespace std;
 
 
-class Personnage
+class Personnage : public Thing
 {
 private:
     Sommet position;
