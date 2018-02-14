@@ -19,7 +19,7 @@ Celle-ci définit à tout instant la clef qui sera attribuée au prochain élém
 #include "../Erreur.h"
 #include "Sommet.h"
 #include "Arete.h"
-#include "FenetreSFML.h"
+#include "../Screen/FenetreSFML.h"
 
 /*
 classe sachant dessiner un graphe

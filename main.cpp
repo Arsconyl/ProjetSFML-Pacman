@@ -2,24 +2,86 @@
 #include <iostream>
 #include "Graphe/Graphe.h"
 #include "Persos/Pacman.h"
-#include "World/Gom.h"
-#include "SFML/System.hpp"
+#include "Persos/Fantome.h"
+#include <vector>
 
 using namespace std;
 using namespace sf;
 int main()
 {
     Graphe<int, Vector2f> g1;
-    Sommet<Vector2f> *S[25];
+    //Sommet<Vector2f> *S[25];
+    vector<Sommet<Vector2f>*> S;
 
     for(unsigned int i = 0; i<25; i++)
     {
-        S[i] = g1.creeSommet(Vector2f((100*(i / 5))+70, 100*((i % 5))+70));
+        //S[i] = g1.creeSommet(Vector2f((100*(i / 5))+70, 100*((i % 5))+70));
+        S.push_back(g1.creeSommet(Vector2f((100*(i / 5))+70, 100*((i % 5))+70)));
     }
 
-    Arete<int, Vector2f> *A[54];
+    //Arete<int, Vector2f> *A[54];
+    vector<Arete<int, Vector2f> *> A;
 
-    A[0] = g1.creeArete(-2, S[0], S[5]);
+    A.push_back(g1.creeArete(-2, S[0], S[5]));
+    A.push_back(g1.creeArete(-1, S[0], S[6]));
+    A.push_back(g1.creeArete(0, S[0], S[1]));
+    A.push_back(g1.creeArete(-2, S[1], S[6]));
+    A.push_back(g1.creeArete(-1, S[1], S[7]));
+    A.push_back(g1.creeArete(0, S[1], S[2]));
+    A.push_back(g1.creeArete(-2, S[2], S[7]));
+    A.push_back(g1.creeArete(0, S[2], S[3]));
+    A.push_back(g1.creeArete(-3, S[3], S[7]));
+    A.push_back(g1.creeArete(-2, S[3], S[8]));
+    A.push_back(g1.creeArete(0, S[3], S[4]));
+    A.push_back(g1.creeArete(-3, S[4], S[8]));
+    A.push_back(g1.creeArete(-2, S[4], S[9]));
+    A.push_back(g1.creeArete(-2, S[5], S[10]));
+    A.push_back(g1.creeArete(-1, S[5], S[11]));
+    A.push_back(g1.creeArete(0, S[5], S[6]));
+    A.push_back(g1.creeArete(-2, S[6], S[11]));
+    A.push_back(g1.creeArete(-1, S[6], S[12]));
+    A.push_back(g1.creeArete(0, S[6], S[7]));
+    A.push_back(g1.creeArete(-2, S[7], S[12]));
+    A.push_back(g1.creeArete(0, S[7], S[8]));
+    A.push_back(g1.creeArete(-2, S[8], S[13]));
+    A.push_back(g1.creeArete(0, S[8], S[9]));
+    A.push_back(g1.creeArete(-3, S[8], S[12]));
+    A.push_back(g1.creeArete(-3, S[9], S[13]));
+    A.push_back(g1.creeArete(-2, S[9], S[14]));
+    A.push_back(g1.creeArete(-2, S[10], S[15]));
+    A.push_back(g1.creeArete(0, S[10], S[11]));
+    A.push_back(g1.creeArete(-3, S[11], S[15]));
+    A.push_back(g1.creeArete(-2, S[11], S[16]));
+    A.push_back(g1.creeArete(0, S[11], S[12]));
+    A.push_back(g1.creeArete(-3, S[12], S[16]));
+    A.push_back(g1.creeArete(-2, S[12], S[17]));
+    A.push_back(g1.creeArete(-1, S[12], S[18]));
+    A.push_back(g1.creeArete(0, S[12], S[13]));
+    A.push_back(g1.creeArete(-2, S[13], S[18]));
+    A.push_back(g1.creeArete(-1, S[13], S[19]));
+    A.push_back(g1.creeArete(0, S[13], S[14]));
+    A.push_back(g1.creeArete(-2, S[14], S[19]));
+    A.push_back(g1.creeArete(-2, S[15], S[20]));
+    A.push_back(g1.creeArete(0, S[15], S[16]));
+    A.push_back(g1.creeArete(-3, S[16], S[20]));
+    A.push_back(g1.creeArete(-2, S[16], S[21]));
+    A.push_back(g1.creeArete(0, S[16], S[17]));
+    A.push_back(g1.creeArete(-3, S[17], S[21]));
+    A.push_back(g1.creeArete(-2, S[17], S[22]));
+    A.push_back(g1.creeArete(-1, S[17], S[23]));
+    A.push_back(g1.creeArete(0, S[17], S[18]));
+    A.push_back(g1.creeArete(-2, S[18], S[23]));
+    A.push_back(g1.creeArete(-1, S[18], S[24]));
+    A.push_back(g1.creeArete(0, S[18], S[19]));
+    A.push_back(g1.creeArete(-2, S[19], S[24]));
+    A.push_back(g1.creeArete(0, S[20], S[21]));
+    A.push_back(g1.creeArete(0, S[21], S[22]));
+    A.push_back(g1.creeArete(0, S[22], S[23]));
+    A.push_back(g1.creeArete(0, S[23], S[24]));
+
+
+
+    /*A[0] = g1.creeArete(-2, S[0], S[5]);
     A[1] = g1.creeArete(-1, S[0], S[6]);
     A[2] = g1.creeArete(0, S[0], S[1]);
     A[3] = g1.creeArete(-2, S[1], S[6]);
@@ -75,10 +137,11 @@ int main()
     A[52] = g1.creeArete(0, S[22], S[23]);
     A[53] = g1.creeArete(0, S[23], S[24]);
 
-    A[54] = g1.creeArete(-3, S[3], S[7]);
+    A[54] = g1.creeArete(-3, S[3], S[7]);*/
 
     FenetreSFML<int, Vector2f> window;
     Pacman<int, Vector2f> pacman(*S[0], "Pacman", "pacmanRight");
+    Fantome<int, Vector2f> fantome1(*S[24], "ghost1", "ghost1"), fantome2(*S[23], "ghost2", "ghost2"), fantome3(*S[22], "ghost3", "ghost3"), fantome4(*S[19], "ghost4", "ghost4");
 
     while (window.isOpen())
     {
@@ -98,7 +161,11 @@ int main()
         }
         window.clear();
         g1.dessine(window);
-        pacman.dessine(&window);
+        fantome1.dessine(window);
+        fantome2.dessine(window);
+        fantome3.dessine(window);
+        fantome4.dessine(window);
+        pacman.dessine(window);
         window.display();
     }
     return 0;

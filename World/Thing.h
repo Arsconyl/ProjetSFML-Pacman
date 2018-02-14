@@ -4,7 +4,7 @@
 #include "../Graphe/Sommet.h"
 #include <string>
 #include <SFML/Graphics.hpp>
-#include "../Graphe/FenetreSFML.h"
+#include "../Screen/FenetreSFML.h"
 
 using namespace std;
 
@@ -33,7 +33,7 @@ public:
     const string &getImage () const;
     void setImage (const string &sprite);
 
-    const void dessine(FenetreSFML<S, T> *window);
+    const void dessine(FenetreSFML<S, T> &window);
 };
 
 template<class S, class T>
@@ -80,7 +80,7 @@ void Thing<S, T>::setImage (const string &sprite)
 }
 
 template<class S, class T>
-const void Thing<S, T>::dessine (FenetreSFML<S, T> *window)
+const void Thing<S, T>::dessine (FenetreSFML<S, T> &window)
 {
     sf::Image img;
     img.loadFromFile("images/" + image + ".png");
@@ -93,8 +93,8 @@ const void Thing<S, T>::dessine (FenetreSFML<S, T> *window)
     sf::Sprite sprite;
     sprite.setTexture(texture);
     sprite.setPosition(position.v);
-    sprite.setPosition(getPosition().v+Vector2f(15,15));
-    window->draw(sprite);
+    sprite.setPosition(getPosition().v+Vector2f(20,20));
+    window.draw(sprite);
 }
 
 template<class S, class T>

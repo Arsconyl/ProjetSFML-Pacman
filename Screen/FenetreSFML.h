@@ -10,7 +10,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <cmath>
-#include "Graphe.h"
+#include "../Graphe/Graphe.h"
 
 using namespace sf;
 

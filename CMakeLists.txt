@@ -13,12 +13,12 @@ add_executable(ProjetSFML-Pacman
         Graphe/PElement.h
         Erreur.h
         Graphe/AElement.cpp
-        Graphe/FenetreSFML.h
+        Screen/FenetreSFML.h
         Persos/Pacman.h
         Persos/Fantome.h
         Persos/Personnage.h
         World/Thing.h
-        World/Gom.h)
+        World/Gom.h Screen/Animation.h)
 # Detect and add SFML
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 find_package(SFML 2.4 COMPONENTS system window graphics network audio)

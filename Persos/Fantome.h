@@ -20,7 +20,7 @@ public:
 template<class S, class T>
 Fantome<S, T>::Fantome(Fantome<S, T> &p):Personnage<S, T>(p){}
 template<class S, class T>
-Fantome<S, T>::Fantome(Sommet<T> position, string image, string nom, int etat):Personnage<S, T>(position, image, "Fantome "+nom, etat){}
+Fantome<S, T>::Fantome(Sommet<T> position, string image, string nom, int etat):Personnage<S, T>(position, image, nom, etat){}
 template<class S, class T>
 Fantome<S, T>::~Fantome(){}
 
