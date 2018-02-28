@@ -7,12 +7,13 @@
 
 
 #include "../Persos/Personnage.h"
+#include "../Persos/Pacman.h"
 
 class Animation
 {
-private:
-    Personnage p;
-    FenetreSFML fen;
+public:
+    template <class S, class T>
+    static void AnimePacmanDroit(FenetreSFML<S, T> fen, Pacman pacman);
 
 };
 

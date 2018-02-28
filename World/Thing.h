@@ -12,17 +12,16 @@ template<class S, class T>
 class Thing
 {
 private:
-    Sommet<T> position;
-    int etat;
-public:
-    const Sommet<T> &getPosition () const;
-
-    void setPosition (const Sommet<T> &position);
-
-private:
+    Sommet<T> *positionS;
+    int etat, positionNum;
     string nom, image;
 public:
-    Thing<S, T>(Sommet<T> position, string image, string nom, int etat=1);
+    Sommet<T>* getPositionS () const;
+    void setPositionS (Sommet<T> *positionS);
+    const int getPositionNum () const;
+    void setPositionNum (const int &positionNum);
+public:
+    Thing<S, T>(Sommet<T> *position, int positionNum, string image, string nom, int etat=1);
     Thing<S, T>(Thing<S, T> &p);
     virtual ~Thing<S, T> ();
 
@@ -37,10 +36,10 @@ public:
 };
 
 template<class S, class T>
-Thing<S, T>::Thing(Thing<S, T> &p):position(p.position), image(p.image), nom(p.nom), etat(p.etat){}
+Thing<S, T>::Thing(Thing<S, T> &p):positionS(p.positionS), positionNum(p.positionNum), image(p.image), nom(p.nom), etat(p.etat){}
 
 template<class S, class T>
-Thing<S, T>::Thing(Sommet<T> position, string image, string nom, int etat):position(position), image(image), nom(nom), etat(etat){}
+Thing<S, T>::Thing(Sommet<T> *positionS, int positionNum, string image, string nom, int etat):positionS(positionS), positionNum(positionNum), image(image), nom(nom), etat(etat){}
 
 template<class S, class T>
 Thing<S, T>::~Thing<S, T>(){}
@@ -92,21 +91,33 @@ const void Thing<S, T>::dessine (FenetreSFML<S, T> &window)
     }
     sf::Sprite sprite;
     sprite.setTexture(texture);
-    sprite.setPosition(position.v);
-    sprite.setPosition(getPosition().v+Vector2f(20,20));
+    sprite.setPosition(positionS->v);
+    sprite.setPosition(getPositionS()->v+Vector2f(20,20));
     window.draw(sprite);
 }
 
 template<class S, class T>
-const Sommet<T> &Thing<S, T>::getPosition () const
+Sommet<T>* Thing<S, T>::getPositionS () const
 {
-    return position;
+    return positionS;
 }
 
 template<class S, class T>
-void Thing<S, T>::setPosition (const Sommet<T> &position)
+void Thing<S, T>::setPositionS (Sommet<T> *positionS)
 {
-    Thing::position = position;
+    this->positionS = positionS;
+}
+
+template<class S, class T>
+const int Thing<S, T>::getPositionNum () const
+{
+    return positionNum;
+}
+
+template<class S, class T>
+void Thing<S, T>::setPositionNum (const int &positionNum)
+{
+    this->positionNum = positionNum;
 }
 
 #endif //PROJETSFML_Thing<S, T>_GOM_H
