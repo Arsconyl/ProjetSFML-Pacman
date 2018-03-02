@@ -12,128 +12,97 @@
 #include "Fantome.h"
 #include <cstdlib>
 
+using namespace sf;
+
 class deplacement
 {
+private:
+    template<class S, class T>
+    static bool deplacementPacman(Pacman<S, T> &pacman, board &B, int dir, bool comp);
 public:
     template<class S, class T>
     static bool gestionDeplacementPacman(Pacman<S, T> &pacman, board &B);
     template<class S, class T>
     static bool gestionDeplacementFantomeLvl1(Fantome<S, T> &fantome, board &B);
 };
+
+template<class S, class T>
+bool deplacement::deplacementPacman (Pacman<S, T> &pacman, board &B, int dir, bool comp)
+{
+    /*Comp à vrai pour deplacement vers sommet à clef inférieure(haut et gauche) et faux si deplacement vers sommet à clef supérieure (bas et droite)*/
+    PElement<pair < Sommet < T> *, Arete <S, T>* > >  *adjacences = B.graphe.adjacences(pacman.getPosition());
+    if(comp)
+    {
+        while(adjacences)
+        {
+            if((adjacences->valeur->second->v == dir) && (adjacences->valeur->first->clef < pacman.getPosition()->clef))
+            {
+                pacman.setPosition(adjacences->valeur->first);
+                return true;
+            }
+            else
+                adjacences = adjacences->suivant;
+        }
+        return false;
+    }
+    else
+    {
+        while(adjacences)
+        {
+            if((adjacences->valeur->second->v == dir) && (adjacences->valeur->first->clef > pacman.getPosition()->clef))
+            {
+                pacman.setPosition(adjacences->valeur->first);
+                return true;
+            }
+            else
+                adjacences = adjacences->suivant;
+        }
+        return false;
+    }
+
+}
+
 template<class S, class T>
 bool deplacement::gestionDeplacementPacman (Pacman<S, T> &pacman, board &B)
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1)) //DownLeft
     {
-        if(B.graphe.getAreteParSommets(pacman.getPositionS(), B.sommets[pacman.getPositionNum()-4]))
-        {
-            pacman.setPositionS(B.sommets[pacman.getPositionNum()-4]);
-            pacman.setPositionNum(pacman.getPositionNum()-4);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return deplacementPacman(pacman, B, -3, true);
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2)) //Down
     {
-        if(B.graphe.getAreteParSommets(pacman.getPositionS(), B.sommets[pacman.getPositionNum()+1]))
-        {
-            pacman.setPositionS(B.sommets[pacman.getPositionNum()+1]);
-            pacman.setPositionNum(pacman.getPositionNum()+1);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return deplacementPacman(pacman, B, 0, false);
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad3))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad3)) //DownRight
     {
-        if(B.graphe.getAreteParSommets(pacman.getPositionS(), B.sommets[pacman.getPositionNum()+6]))
-        {
-            pacman.setPositionS(B.sommets[pacman.getPositionNum()+6]);
-            pacman.setPositionNum(pacman.getPositionNum()+6);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return deplacementPacman(pacman, B, -1, false);
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4)) //Left
     {
-        if(B.graphe.getAreteParSommets(pacman.getPositionS(), B.sommets[pacman.getPositionNum()-5]))
-        {
-            pacman.setPositionS(B.sommets[pacman.getPositionNum()-5]);
-            pacman.setPositionNum(pacman.getPositionNum()-5);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return deplacementPacman(pacman, B, -2, true);
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6)) //Right
     {
-        if(B.graphe.getAreteParSommets(pacman.getPositionS(), B.sommets[pacman.getPositionNum()+5]))
-        {
-            pacman.setPositionS(B.sommets[pacman.getPositionNum()+5]);
-            pacman.setPositionNum(pacman.getPositionNum()+5);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return deplacementPacman(pacman, B, -2, false);
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad7))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad7)) //UpLeft
     {
-        if(B.graphe.getAreteParSommets(pacman.getPositionS(), B.sommets[pacman.getPositionNum()-6]))
-        {
-            pacman.setPositionS(B.sommets[pacman.getPositionNum()-6]);
-            pacman.setPositionNum(pacman.getPositionNum()-6);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return deplacementPacman(pacman, B, -1, true);
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad8))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad8)) //Up
     {
-        if(B.graphe.getAreteParSommets(pacman.getPositionS(), B.sommets[pacman.getPositionNum()+-1]))
-        {
-            pacman.setPositionS(B.sommets[pacman.getPositionNum()-1]);
-            pacman.setPositionNum(pacman.getPositionNum()-1);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return deplacementPacman(pacman, B, 0, true);
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad9))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad9)) //UpRight
     {
-        if(B.graphe.getAreteParSommets(pacman.getPositionS(), B.sommets[pacman.getPositionNum()+4]))
-        {
-            pacman.setPositionS(B.sommets[pacman.getPositionNum()+4]);
-            pacman.setPositionNum(pacman.getPositionNum()+4);
-            return true;
-        }
-
-        else
-        {
-            return false;
-        }
+        return deplacementPacman(pacman, B, -3, false);
     }
 }
 
 template<class S, class T>
 bool deplacement::gestionDeplacementFantomeLvl1(Fantome<S, T> &fantome, board &B)
 {
-    PElement <Sommet<T>> *voisins = B.graphe.voisins(fantome.getPositionS());
+    PElement <Sommet<T>> *voisins = B.graphe.voisins(fantome.getPosition());
     int nbVoisins = PElement<Sommet<T>>::taille(voisins), i=1;
     int dir = rand() % nbVoisins;
     while(i <= dir)
@@ -141,10 +110,9 @@ bool deplacement::gestionDeplacementFantomeLvl1(Fantome<S, T> &fantome, board &B
         voisins = voisins->suivant;
         i++;
     }
-    fantome.setPositionS(voisins->valeur);
+    fantome.setPosition(voisins->valeur);
 
 }
-
 
 
 #endif //PROJETSFML_PACMAN_DEPLACEMENT_H

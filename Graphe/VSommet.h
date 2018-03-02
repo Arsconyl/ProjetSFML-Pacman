@@ -6,10 +6,92 @@
 #define PROJETSFML_PACMAN_VSOMMET_H
 
 
+#include <SFML/System.hpp>
+#include "InfoAStar.h"
+
 class VSommet
 {
+private:
+    int temp;
+    bool Perso, Gom;
+    InfoAStar infoAStar;
+    sf::Vector2f position;
+public:
+    explicit VSommet (sf::Vector2f position, int temp = 0, bool Perso = false, bool Gom = true, const InfoAStar &infoAStar = InfoAStar());
+    virtual ~VSommet ();
+    VSommet (const VSommet &vs);
+
+    inline int getTemp () const;
+    inline void setTemp (int temp);
+    inline bool isPerso () const;
+    inline void setPerso (bool Perso);
+    inline bool isGom () const;
+    inline void setGom (bool Gom);
+    inline const InfoAStar &getInfoAStar () const;
+    inline void setInfoAStar (const InfoAStar &infoAStar);
+    inline const sf::Vector2f &getPosition () const;
+    inline void setPosition (const sf::Vector2f &position);
 
 };
+
+VSommet::VSommet (sf::Vector2f position, int temp, bool Perso, bool Gom, const InfoAStar &infoAStar) : position(position), temp(temp), Perso(Perso), Gom(Gom), infoAStar(infoAStar)
+{}
+
+VSommet::~VSommet ()
+= default;
+
+VSommet::VSommet (const VSommet &vs) : position(vs.position), temp(vs.temp), Perso(vs.Perso), Gom(vs.Gom), infoAStar(vs.infoAStar)
+{}
+
+inline int VSommet::getTemp () const
+{
+    return temp;
+}
+
+inline void VSommet::setTemp (int temp)
+{
+    VSommet::temp = temp;
+}
+
+inline bool VSommet::isPerso () const
+{
+    return Perso;
+}
+
+inline void VSommet::setPerso (bool Perso)
+{
+    VSommet::Perso = Perso;
+}
+
+inline bool VSommet::isGom () const
+{
+    return Gom;
+}
+
+inline void VSommet::setGom (bool Gom)
+{
+    VSommet::Gom = Gom;
+}
+
+inline const InfoAStar &VSommet::getInfoAStar () const
+{
+    return infoAStar;
+}
+
+inline void VSommet::setInfoAStar (const InfoAStar &infoAStar)
+{
+    VSommet::infoAStar = infoAStar;
+}
+
+inline const sf::Vector2f &VSommet::getPosition () const
+{
+    return position;
+}
+
+inline void VSommet::setPosition (const sf::Vector2f &position)
+{
+    VSommet::position = position;
+}
 
 
 #endif //PROJETSFML_PACMAN_VSOMMET_H

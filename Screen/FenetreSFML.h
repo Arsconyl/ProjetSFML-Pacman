@@ -18,7 +18,7 @@ template<class S, class T>
 class FenetreSFML:public RenderWindow
 {
 public:
-    FenetreSFML<S, T>():RenderWindow(VideoMode(640, 720), "PacmanSFML"){}
+    FenetreSFML<S, T>(unsigned int width, unsigned int height, string name):RenderWindow(VideoMode(width, height), name){}
     FenetreSFML<S, T>(FenetreSFML &f):RenderWindow(f){}
     bool dessine(Arete<S, T> *arete);
     bool dessine(Sommet<T> *sommet);
@@ -29,7 +29,7 @@ template<class S, class T>
 bool FenetreSFML<S, T>::dessine(Arete<S, T> *arete)
 {
     int x1 = 100+100*(arete->debut->clef / 5), y1 = 100+100*(arete->debut->clef % 5), x2 = 100+100*(arete->fin->clef / 5), y2 = 100+100*(arete->fin->clef % 5);
-    RectangleShape A(Vector2f(20, sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1))));
+    RectangleShape A(Vector2f(20, (float)(sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)))));
     A.setOutlineColor(Color::Cyan);
     A.setOutlineThickness(8);
     A.setFillColor(Color::Black);
@@ -51,7 +51,7 @@ bool FenetreSFML<S, T>::dessine(Sommet<T> *sommet)
 {
     CircleShape C(30, 100);
     //C.setPosition((100*(sommet->clef / 5))-C.getRadius()+100, 100*((sommet->clef % 5))-C.getRadius()+100);
-    C.setPosition(sommet->v);
+    C.setPosition(sommet->v.getPosition());
     C.setOutlineThickness(10);
     C.setOutlineColor(Color::Cyan);
     C.setFillColor(Color::Black);

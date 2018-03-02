@@ -12,16 +12,14 @@ template<class S, class T>
 class Thing
 {
 private:
-    Sommet<T> *positionS;
-    int etat, positionNum;
+    Sommet<T> *position;
+    int etat;
     string nom, image;
 public:
-    Sommet<T>* getPositionS () const;
-    void setPositionS (Sommet<T> *positionS);
-    const int getPositionNum () const;
-    void setPositionNum (const int &positionNum);
+    Sommet<T>* getPosition () const;
+    void setPosition (Sommet<T> *position);
 public:
-    Thing<S, T>(Sommet<T> *position, int positionNum, string image, string nom, int etat=1);
+    explicit Thing<S, T>(Sommet<T> *position, string image, string nom, int etat=1);
     Thing<S, T>(Thing<S, T> &p);
     virtual ~Thing<S, T> ();
 
@@ -32,17 +30,17 @@ public:
     const string &getImage () const;
     void setImage (const string &sprite);
 
-    const void dessine(FenetreSFML<S, T> &window);
+    const void dessine(RenderWindow &window);
 };
 
 template<class S, class T>
-Thing<S, T>::Thing(Thing<S, T> &p):positionS(p.positionS), positionNum(p.positionNum), image(p.image), nom(p.nom), etat(p.etat){}
+Thing<S, T>::Thing(Thing<S, T> &p):position(p.position), image(p.image), nom(p.nom), etat(p.etat){}
 
 template<class S, class T>
-Thing<S, T>::Thing(Sommet<T> *positionS, int positionNum, string image, string nom, int etat):positionS(positionS), positionNum(positionNum), image(image), nom(nom), etat(etat){}
+Thing<S, T>::Thing(Sommet<T> *position, string image, string nom, int etat):position(position), image(image), nom(nom), etat(etat){}
 
 template<class S, class T>
-Thing<S, T>::~Thing<S, T>(){}
+Thing<S, T>::~Thing<S, T>(){};
 
 template<class S, class T>
 inline void Thing<S, T>::toggleEtat()
@@ -79,7 +77,7 @@ void Thing<S, T>::setImage (const string &sprite)
 }
 
 template<class S, class T>
-const void Thing<S, T>::dessine (FenetreSFML<S, T> &window)
+const void Thing<S, T>::dessine (RenderWindow &window)
 {
     sf::Image img;
     img.loadFromFile("images/" + image + ".png");
@@ -91,33 +89,21 @@ const void Thing<S, T>::dessine (FenetreSFML<S, T> &window)
     }
     sf::Sprite sprite;
     sprite.setTexture(texture);
-    sprite.setPosition(positionS->v);
-    sprite.setPosition(getPositionS()->v+Vector2f(20,20));
+    sprite.setPosition(position->v.getPosition());
+    sprite.setPosition(getPosition()->v.getPosition()+Vector2f(20,20));
     window.draw(sprite);
 }
 
 template<class S, class T>
-Sommet<T>* Thing<S, T>::getPositionS () const
+Sommet<T>* Thing<S, T>::getPosition () const
 {
-    return positionS;
+    return position;
 }
 
 template<class S, class T>
-void Thing<S, T>::setPositionS (Sommet<T> *positionS)
+void Thing<S, T>::setPosition (Sommet<T> *position)
 {
-    this->positionS = positionS;
-}
-
-template<class S, class T>
-const int Thing<S, T>::getPositionNum () const
-{
-    return positionNum;
-}
-
-template<class S, class T>
-void Thing<S, T>::setPositionNum (const int &positionNum)
-{
-    this->positionNum = positionNum;
+    this->position = position;
 }
 
 #endif //PROJETSFML_Thing<S, T>_GOM_H

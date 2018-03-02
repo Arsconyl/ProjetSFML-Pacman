@@ -5,7 +5,6 @@
 #include "Persos/Fantome.h"
 #include "World/board.h"
 #include "Persos/deplacement.h"
-#include <vector>
 
 using namespace std;
 using namespace sf;
@@ -13,17 +12,16 @@ int main()
 {
     board B;
 
-    FenetreSFML<int, Vector2f> window;
-    Pacman<int, Vector2f> pacman(B.sommets[0], 0,"Pacman", "pacmanRight", 1);
-    Fantome<int, Vector2f> fantome1(B.sommets[24], 24, "ghost1", "ghost1", 1),
-            fantome2(B.sommets[23], 23, "ghost2", "ghost2", 1),
-            fantome3(B.sommets[22], 22, "ghost3", "ghost3", 1),
-            fantome4(B.sommets[19], 19, "ghost4", "ghost4", 1);
-    cout << pacman.getPositionNum() << endl;
+    FenetreSFML<int, VSommet> window(640, 720, "PacmanSFML !");
+    Pacman<int, VSommet> pacman(B.sommets[0], "Pacman", "pacmanRight", 1);
+    Fantome<int, VSommet> fantome1(B.sommets[24], "ghost1", "ghost1", 1),
+            fantome2(B.sommets[23], "ghost2", "ghost2", 1),
+            fantome3(B.sommets[22], "ghost3", "ghost3", 1),
+            fantome4(B.sommets[19], "ghost4", "ghost4", 1);
 
     while (window.isOpen())
     {
-        sf::Event event;
+        sf::Event event{};
         while (window.pollEvent(event))
         {
             switch (event.type)
@@ -38,7 +36,7 @@ int main()
             }
             if(deplacement::gestionDeplacementPacman(pacman , B))
                 deplacement::gestionDeplacementFantomeLvl1(fantome1, B);
-            if(pacman.getPositionS() == fantome1.getPositionS())
+            if(pacman.getPosition() == fantome1.getPosition())
                 window.close();
         }
         window.clear();

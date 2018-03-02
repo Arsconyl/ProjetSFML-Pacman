@@ -7,15 +7,16 @@
 
 #include "../Graphe/Graphe.h"
 #include "../Graphe/Arete.h"
+#include "../Graphe/VSommet.h"
 #include <vector>
 
 
 class board
 {
 public:
-    Graphe<int, Vector2f> graphe;
-    vector<Sommet<Vector2f> *> sommets;
-    vector<Arete<int, Vector2f> *> aretes;
+    Graphe<int, VSommet> graphe;
+    vector<Sommet<VSommet> *> sommets;
+    vector<Arete<int, VSommet> *> aretes;
 
     board()
     {
@@ -81,6 +82,9 @@ public:
         aretes.push_back(graphe.creeArete(0, sommets[22], sommets[23]));
         aretes.push_back(graphe.creeArete(0, sommets[23], sommets[24]));
     }
+
+    virtual ~board ()
+    = default;
 };
 
 
