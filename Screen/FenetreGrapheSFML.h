@@ -34,7 +34,7 @@ inline const Vector2f vecteur2DToVector2f (const Vecteur2D &v)
 
 vSommet : en coordonnï¿½es monde
 */
-inline bool dessinePetitRond (RenderWindow &fenetre, const TransfoAffine2D &t, const VSommet &vSommet)
+inline bool dessineSommet (RenderWindow &fenetre, const TransfoAffine2D &t, const VSommet &vSommet)
 {
     Vecteur2D position = t.applique(vSommet.getPosition());
     Vecteur2D position1 = position - 30 * Vecteur2D(1, 1);
@@ -54,8 +54,8 @@ inline bool dessinePetitRond (RenderWindow &fenetre, const TransfoAffine2D &t, c
 /**
 dï¿½but et fin sont en coordonnï¿½es monde
 */
-inline bool dessineSegment (RenderWindow &fenetre, const TransfoAffine2D &t,
-                            const Vecteur2D &debut, const Vecteur2D &fin, const unsigned int epaisseurTraitPixels = 20)
+inline bool dessineArete (RenderWindow &fenetre, const TransfoAffine2D &t, const Vecteur2D &debut, const Vecteur2D &fin,
+                          const Color couleur)
 {
     Vecteur2D A, B;    // {AB] est l'arï¿½te ï¿½ reprï¿½senter
 
@@ -69,7 +69,7 @@ inline bool dessineSegment (RenderWindow &fenetre, const TransfoAffine2D &t,
     Vecteur2D n = u.rotationDirecteQuartDeTour();
 
     //double e = 1;	// ï¿½paisseur du rectangle = 2*e. longueur du rectangle == AB
-    double e = 0.5 * epaisseurTraitPixels;    // ï¿½paisseur du rectangle = 2*e. longueur du rectangle == AB
+    double e = 10;    // ï¿½paisseur du rectangle = 2*e. longueur du rectangle == AB
 
     Vecteur2D v = e * n;
 
@@ -87,7 +87,8 @@ inline bool dessineSegment (RenderWindow &fenetre, const TransfoAffine2D &t,
     rectangle.setPoint(2, F2);
     rectangle.setPoint(3, F3);
 
-    rectangle.setFillColor(Color::Cyan);
+
+    rectangle.setFillColor(couleur);
     fenetre.draw(rectangle);
 
     return true;
@@ -102,9 +103,6 @@ class FenetreGrapheSFML
 {
 public:
     RenderWindow fenetre;
-    const Font &font;
-
-
     TransfoAffine2D t;    // rï¿½alise le passage fenï¿½tre-clï¿½ture (ou encore monde vers ï¿½cran)
 /**
 Crï¿½e la fenï¿½tre qui va contenir le dessin du graphe.
@@ -121,7 +119,7 @@ DONNEES : titre : titre de la fenï¿½tre
     FenetreGrapheSFML (const string &titre,
                        const Vecteur2D &coinBG, const Vecteur2D &coinHD,
                        const int largeur, const int hauteur) :
-            fenetre(sf::VideoMode(largeur, hauteur), titre), font(font)
+            fenetre(sf::VideoMode(largeur, hauteur), titre)
     {
         fenetre.clear();
 // calcul de la transformation affine - changement de repï¿½re : monde ---> ï¿½cran
@@ -138,14 +136,6 @@ On suppose que les coordonnï¿½es du sommet sont dï¿½finies par rapport au repï¿½
     bool dessine (const Sommet<T> *sommet);
 
 /**
-Dessine l'arï¿½te (dï¿½but->fin) en utilisant la couleur "couleur"
-renvoie true en cas de succï¿½s, false en cas d'ï¿½chec
-On suppose que les coordonnï¿½es des sommets sont dï¿½finies par rapport au repï¿½re du monde
-*/
-    template<class T>
-    bool dessine (const Sommet<T> *debut, const Sommet<T> *fin, unsigned int couleur);
-
-/**
 Dessine un arï¿½te du graphe. Exemples :  nom, couleur, informations associï¿½es, etc.
 renvoie true en cas de succï¿½s, false en cas d'ï¿½chec
 On suppose que les coordonnï¿½es des sommets sont dï¿½finies par rapport au repï¿½re du monde
@@ -158,7 +148,7 @@ On suppose que les coordonnï¿½es des sommets sont dï¿½finies par rapport au repï
 template<>
 bool FenetreGrapheSFML::dessine<VSommet> (const Sommet<VSommet> *sommet)
 {
-    return dessinePetitRond(this->fenetre, this->t, sommet->v);    // mï¿½thode ordinaire. cf. dï¿½but de ce fichier
+    return dessineSommet(this->fenetre, this->t, sommet->v);
 }
 
 /*
@@ -192,8 +182,22 @@ return true;
 template<>
 bool FenetreGrapheSFML::dessine<VArete, VSommet> (const Arete<VArete, VSommet> *arete)
 {
-    if (dessineSegment(this->fenetre, this->t, arete->debut->v.getPosition(), arete->fin->v.getPosition()))
-        return dessineSegment(this->fenetre, this->t, arete->debut->v.getPosition(), arete->fin->v.getPosition());
+    int temp = arete->v.getTemp();
+    if (temp == 0)
+        return dessineArete(this->fenetre, this->t, arete->debut->v.getPosition(), arete->fin->v.getPosition(),
+                            Color::Cyan);
+    else if (temp == 1)
+        return dessineArete(this->fenetre, this->t, arete->debut->v.getPosition(), arete->fin->v.getPosition(),
+                            Color::Magenta);
+    else if (temp == 2)
+        return dessineArete(this->fenetre, this->t, arete->debut->v.getPosition(), arete->fin->v.getPosition(),
+                            Color::Yellow);
+    else if (temp == 3)
+        return dessineArete(this->fenetre, this->t, arete->debut->v.getPosition(), arete->fin->v.getPosition(),
+                            Color(237, 127, 16));
+    else if (temp == 4)
+        return dessineArete(this->fenetre, this->t, arete->debut->v.getPosition(), arete->fin->v.getPosition(),
+                            Color::Red);
 }
 
 /*{
