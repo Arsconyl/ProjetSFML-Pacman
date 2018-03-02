@@ -610,6 +610,7 @@ bool dessine(const PElement <Sommet<T>> *chemin, Fenetre &Fen, const unsigned in
 }
 
 
+
 /**
 dessine le graphe de manière indépendante de la librairie graphique utilisée
 

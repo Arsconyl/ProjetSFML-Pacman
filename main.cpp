@@ -12,9 +12,9 @@ int main()
 {
     board B;
 
-    FenetreSFML<int, VSommet> window(640, 720, "PacmanSFML !");
-    Pacman<int, VSommet> pacman(B.sommets[0], "Pacman", "pacmanRight", 1);
-    Fantome<int, VSommet> fantome1(B.sommets[24], "ghost1", "ghost1", 1),
+    FenetreSFML<VArete, VSommet> window(700, 720, "PacmanSFML !");
+    Pacman<VArete, VSommet> pacman(B.sommets[0], "Pacman", "pacmanRight", 1);
+    Fantome<VArete, VSommet> fantome1(B.sommets[24], "ghost1", "ghost1", 1),
             fantome2(B.sommets[23], "ghost2", "ghost2", 1),
             fantome3(B.sommets[22], "ghost3", "ghost3", 1),
             fantome4(B.sommets[19], "ghost4", "ghost4", 1);

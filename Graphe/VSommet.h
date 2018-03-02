@@ -12,17 +12,14 @@
 class VSommet
 {
 private:
-    int temp;
     bool Perso, Gom;
     InfoAStar infoAStar;
     sf::Vector2f position;
 public:
-    explicit VSommet (sf::Vector2f position, int temp = 0, bool Perso = false, bool Gom = true, const InfoAStar &infoAStar = InfoAStar());
+    explicit VSommet (sf::Vector2f position, bool Perso = false, bool Gom = true, const InfoAStar &infoAStar = InfoAStar());
     virtual ~VSommet ();
     VSommet (const VSommet &vs);
 
-    inline int getTemp () const;
-    inline void setTemp (int temp);
     inline bool isPerso () const;
     inline void setPerso (bool Perso);
     inline bool isGom () const;
@@ -34,24 +31,14 @@ public:
 
 };
 
-VSommet::VSommet (sf::Vector2f position, int temp, bool Perso, bool Gom, const InfoAStar &infoAStar) : position(position), temp(temp), Perso(Perso), Gom(Gom), infoAStar(infoAStar)
+VSommet::VSommet (sf::Vector2f position, bool Perso, bool Gom, const InfoAStar &infoAStar) : position(position), Perso(Perso), Gom(Gom), infoAStar(infoAStar)
 {}
 
 VSommet::~VSommet ()
 = default;
 
-VSommet::VSommet (const VSommet &vs) : position(vs.position), temp(vs.temp), Perso(vs.Perso), Gom(vs.Gom), infoAStar(vs.infoAStar)
+VSommet::VSommet (const VSommet &vs) : position(vs.position), Perso(vs.Perso), Gom(vs.Gom), infoAStar(vs.infoAStar)
 {}
-
-inline int VSommet::getTemp () const
-{
-    return temp;
-}
-
-inline void VSommet::setTemp (int temp)
-{
-    VSommet::temp = temp;
-}
 
 inline bool VSommet::isPerso () const
 {

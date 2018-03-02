@@ -14,64 +14,77 @@ using namespace std;
 class VArete
 {
 private:
-    int sens1, sens2;
+    int dir, temp;
+    inline void setDir (int dir);
 public:
-    inline void setSens1 (int sens1);
-    inline void setSens2 (int sens2);
-public:
-    VArete (int sens1, int sens2);
+    VArete (int dir, int temp = 0);
     virtual ~VArete ();
     VArete (const VArete &va);
 
     explicit operator string () const;
+    void operator--();
+    void rechauffe();
 
     friend ostream& operator<< (ostream &o, const VArete &va);
 
-    int getSens1 () const;
-
-    int getSens2 () const;
+    inline int getDir () const;
+    inline int getTemp () const;
+    inline void setTemp (int temp);
 };
 
-inline void VArete::setSens1 (int sens1)
+inline void VArete::setDir (int dir)
 {
-    VArete::sens1 = sens1;
+    VArete::dir = dir;
 }
 
-inline void VArete::setSens2 (int sens2)
+inline void VArete::setTemp (int temp)
 {
-    VArete::sens2 = sens2;
+    VArete::temp = temp;
 }
 
-VArete::VArete (int sens1, int sens2) : sens1(sens1), sens2(sens2)
+VArete::VArete (int dir, int temp) : dir(dir), temp(temp)
 {}
 
 VArete::~VArete ()
 = default;
 
-VArete::VArete (const VArete &va): sens1(va.sens1), sens2(va.sens2)
+VArete::VArete (const VArete &va): dir(va.dir), temp(va.temp)
 {}
 
-inline int VArete::getSens1 () const
+inline int VArete::getDir () const
 {
-    return sens1;
+    return dir;
 }
 
-inline int VArete::getSens2 () const
+inline int VArete::getTemp () const
 {
-    return sens2;
+    return temp;
 }
 
 VArete::operator string () const
 {
     ostringstream oss;
 
-    oss <<"VArete : Sens 1 : " << sens1 << " Sens2 : " << sens2;
+    oss <<"VArete : Sens 1 : " << dir << " temp : " << temp;
     return oss.str();
 }
 
 ostream &operator<< (ostream &o, const VArete &va)
 {
     o << (string)va;
+}
+
+void VArete::operator-- ()
+{
+    if(temp > 0)
+    {
+        temp--;
+    }
+}
+
+void VArete::rechauffe ()
+{
+    this->temp = 4;
 }
 
 

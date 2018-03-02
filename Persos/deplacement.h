@@ -35,9 +35,11 @@ bool deplacement::deplacementPacman (Pacman<S, T> &pacman, board &B, int dir, bo
     {
         while(adjacences)
         {
-            if((adjacences->valeur->second->v == dir) && (adjacences->valeur->first->clef < pacman.getPosition()->clef))
+            if((adjacences->valeur->second->v.getDir() == dir) && (adjacences->valeur->first->clef < pacman.getPosition()->clef))
             {
                 pacman.setPosition(adjacences->valeur->first);
+                B.refroiditToutesAretes();
+                adjacences->valeur->second->v.rechauffe();
                 return true;
             }
             else
@@ -49,9 +51,11 @@ bool deplacement::deplacementPacman (Pacman<S, T> &pacman, board &B, int dir, bo
     {
         while(adjacences)
         {
-            if((adjacences->valeur->second->v == dir) && (adjacences->valeur->first->clef > pacman.getPosition()->clef))
+            if((adjacences->valeur->second->v.getDir() == dir) && (adjacences->valeur->first->clef > pacman.getPosition()->clef))
             {
                 pacman.setPosition(adjacences->valeur->first);
+                B.refroiditToutesAretes();
+                adjacences->valeur->second->v.rechauffe();
                 return true;
             }
             else

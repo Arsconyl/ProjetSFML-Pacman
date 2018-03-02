@@ -8,21 +8,22 @@
 #include "../Graphe/Graphe.h"
 #include "../Graphe/Arete.h"
 #include "../Graphe/VSommet.h"
+#include "../Graphe/VArete.h"
 #include <vector>
 
 
 class board
 {
 public:
-    Graphe<int, VSommet> graphe;
+    Graphe<VArete, VSommet> graphe;
     vector<Sommet<VSommet> *> sommets;
-    vector<Arete<int, VSommet> *> aretes;
+    vector<Arete<VArete, VSommet> *> aretes;
 
     board()
     {
         for (unsigned int i = 0; i < 25; i++)
         {
-            sommets.push_back(graphe.creeSommet(Vector2f((100 * (i / 5)) + 70, 100 * ((i % 5)) + 70)));
+            sommets.push_back(graphe.creeSommet(VSommet(Vector2f((100 * (i / 5)) + 70, 100 * ((i % 5)) + 70))));
         }
 
         aretes.push_back(graphe.creeArete(-2, sommets[0], sommets[5]));
@@ -85,6 +86,14 @@ public:
 
     virtual ~board ()
     = default;
+
+    void refroiditToutesAretes()
+    {
+        for(unsigned int i = 0; i < aretes.size(); i++)
+        {
+            aretes[i]->v.operator--();
+        }
+    }
 };
 
 
