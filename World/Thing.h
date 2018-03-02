@@ -5,6 +5,8 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include "../Screen/FenetreSFML.h"
+#include "../Screen/FenetreGrapheSFML.h"
+#include "../Screen/TransfoAffine2D.h"
 
 using namespace std;
 
@@ -30,7 +32,7 @@ public:
     const string &getImage () const;
     void setImage (const string &sprite);
 
-    const void dessine(RenderWindow &window);
+    const void dessine (FenetreGrapheSFML &window);
 };
 
 template<class S, class T>
@@ -77,7 +79,7 @@ void Thing<S, T>::setImage (const string &sprite)
 }
 
 template<class S, class T>
-const void Thing<S, T>::dessine (RenderWindow &window)
+const void Thing<S, T>::dessine (FenetreGrapheSFML &window)
 {
     sf::Image img;
     img.loadFromFile("images/" + image + ".png");
@@ -89,9 +91,8 @@ const void Thing<S, T>::dessine (RenderWindow &window)
     }
     sf::Sprite sprite;
     sprite.setTexture(texture);
-    sprite.setPosition(position->v.getPosition());
-    sprite.setPosition(getPosition()->v.getPosition()+Vector2f(20,20));
-    window.draw(sprite);
+    sprite.setPosition(vecteur2DToVector2f(window.t.applique(position->v.getPosition()) - 10 * Vecteur2D(1, 1)));
+    window.fenetre.draw(sprite);
 }
 
 template<class S, class T>

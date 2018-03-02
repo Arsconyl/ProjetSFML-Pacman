@@ -65,7 +65,7 @@ VArete::operator string () const
 {
     ostringstream oss;
 
-    oss <<"VArete : Sens 1 : " << dir << " temp : " << temp;
+    oss << "VArete : Dir : " << dir << " temp : " << temp;
     return oss.str();
 }
 

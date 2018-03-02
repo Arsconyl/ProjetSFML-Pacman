@@ -23,7 +23,7 @@ public:
     {
         for (unsigned int i = 0; i < 25; i++)
         {
-            sommets.push_back(graphe.creeSommet(VSommet(Vector2f((100 * (i / 5)) + 70, 100 * ((i % 5)) + 70))));
+            sommets.push_back(graphe.creeSommet(VSommet(Vecteur2D(i / 5, i % 5))));
         }
 
         aretes.push_back(graphe.creeArete(-2, sommets[0], sommets[5]));
