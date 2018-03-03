@@ -19,11 +19,17 @@ class deplacement
 private:
     template<class S, class T>
     static bool deplacementPacman(Pacman<S, T> &pacman, board &B, int dir, bool comp);
+
+    template<class S, class T>
+    static bool deplacementFantome (Fantome<S, T> &fantome, board &B, int dir, bool comp);
 public:
     template<class S, class T>
     static bool gestionDeplacementPacman(Pacman<S, T> &pacman, board &B);
     template<class S, class T>
     static bool gestionDeplacementFantomeLvl1(Fantome<S, T> &fantome, board &B);
+
+    template<class S, class T>
+    static bool gestionDeplacementFantomeLvl2 (Fantome<S, T> &fantome, Pacman<S, T> pacman, board &B);
 };
 
 template<class S, class T>
@@ -59,6 +65,40 @@ bool deplacement::deplacementPacman (Pacman<S, T> &pacman, board &B, int dir, bo
                 return true;
             }
             else
+                adjacences = adjacences->suivant;
+        }
+        return false;
+    }
+
+}
+
+template<class S, class T>
+bool deplacement::deplacementFantome (Fantome<S, T> &fantome, board &B, int dir, bool comp)
+{
+    PElement<pair<Sommet<T> *, Arete<S, T> *> > *adjacences = B.graphe.adjacences(fantome.getPosition());
+    if (comp)
+    {
+        while (adjacences)
+        {
+            if ((adjacences->valeur->second->v.getDir() == dir) &&
+                (adjacences->valeur->first->clef < fantome.getPosition()->clef))
+            {
+                fantome.setPosition(adjacences->valeur->first);
+                return true;
+            } else
+                adjacences = adjacences->suivant;
+        }
+        return false;
+    } else
+    {
+        while (adjacences)
+        {
+            if ((adjacences->valeur->second->v.getDir() == dir) &&
+                (adjacences->valeur->first->clef > fantome.getPosition()->clef))
+            {
+                fantome.setPosition(adjacences->valeur->first);
+                return true;
+            } else
                 adjacences = adjacences->suivant;
         }
         return false;
@@ -116,6 +156,17 @@ bool deplacement::gestionDeplacementFantomeLvl1(Fantome<S, T> &fantome, board &B
     }
     fantome.setPosition(voisins->valeur);
 
+}
+
+template<class S, class T>
+bool deplacement::gestionDeplacementFantomeLvl2 (Fantome<S, T> &fantome, Pacman<S, T> pacman, board &B)
+{
+    int aVuPacman = fantome.aVuPacman(B, pacman);
+    if (aVuPacman != 1)
+    {
+        deplacementFantome(fantome, B, aVuPacman,)
+    } else
+        return gestionDeplacementFantomeLvl1(fantome, B);
 }
 
 
