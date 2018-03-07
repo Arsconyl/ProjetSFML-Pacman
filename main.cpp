@@ -16,7 +16,7 @@ int main()
 
     FenetreGrapheSFML window("PacmanSFML !", coinBG, coinHD, 1280, 720);
     Pacman<VArete, VSommet> pacman(B.sommets[0], "Pacman", "pacmanRight", 1);
-    Fantome<VArete, VSommet> fantome1(B.sommets[24], "ghost1", "ghost1", 1),
+    Fantome<VArete, VSommet> fantome1(B.sommets[18], "ghost1", "ghost1", 1),
             fantome2(B.sommets[23], "ghost2", "ghost2", 1),
             fantome3(B.sommets[22], "ghost3", "ghost3", 1),
             fantome4(B.sommets[19], "ghost4", "ghost4", 1);
@@ -36,7 +36,7 @@ int main()
                     break;
             }
             if(deplacement::gestionDeplacementPacman(pacman , B))
-                deplacement::gestionDeplacementFantomeLvl1(fantome1, B);
+                deplacement::gestionDeplacementFantomeLvl2(fantome1, pacman, B);
             if(pacman.getPosition() == fantome1.getPosition())
                 window.fenetre.close();
         }

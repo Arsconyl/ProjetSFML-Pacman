@@ -84,7 +84,7 @@ void VArete::operator-- ()
 
 void VArete::rechauffe ()
 {
-    this->temp = 4;
+    this->temp = 5;
 }
 
 

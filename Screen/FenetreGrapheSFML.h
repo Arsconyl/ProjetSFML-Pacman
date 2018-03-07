@@ -183,21 +183,21 @@ template<>
 bool FenetreGrapheSFML::dessine<VArete, VSommet> (const Arete<VArete, VSommet> *arete)
 {
     int temp = arete->v.getTemp();
-    if (temp == 0)
-        return dessineArete(this->fenetre, this->t, arete->debut->v.getPosition(), arete->fin->v.getPosition(),
-                            Color::Cyan);
-    else if (temp == 1)
+    if (temp == 2)
         return dessineArete(this->fenetre, this->t, arete->debut->v.getPosition(), arete->fin->v.getPosition(),
                             Color::Magenta);
-    else if (temp == 2)
-        return dessineArete(this->fenetre, this->t, arete->debut->v.getPosition(), arete->fin->v.getPosition(),
-                            Color::Yellow);
     else if (temp == 3)
         return dessineArete(this->fenetre, this->t, arete->debut->v.getPosition(), arete->fin->v.getPosition(),
-                            Color(237, 127, 16));
+                            Color::Yellow);
     else if (temp == 4)
         return dessineArete(this->fenetre, this->t, arete->debut->v.getPosition(), arete->fin->v.getPosition(),
+                            Color(237, 127, 16));
+    else if (temp == 5)
+        return dessineArete(this->fenetre, this->t, arete->debut->v.getPosition(), arete->fin->v.getPosition(),
                             Color::Red);
+    else
+        return dessineArete(this->fenetre, this->t, arete->debut->v.getPosition(), arete->fin->v.getPosition(),
+                            Color::Cyan);
 }
 
 /*{
