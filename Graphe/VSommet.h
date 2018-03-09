@@ -30,7 +30,7 @@ public:
     inline void setPerso (bool Perso);
     inline bool isGom () const;
     inline void setGom (bool Gom);
-    inline const InfoAStar &getInfoAStar () const;
+    inline InfoAStar &getInfoAStar ();
     inline void setInfoAStar (const InfoAStar &infoAStar);
 
     inline const Vecteur2D &getPosition () const;
@@ -70,7 +70,7 @@ inline void VSommet::setGom (bool Gom)
     VSommet::Gom = Gom;
 }
 
-inline const InfoAStar &VSommet::getInfoAStar () const
+inline InfoAStar &VSommet::getInfoAStar ()
 {
     return infoAStar;
 }
