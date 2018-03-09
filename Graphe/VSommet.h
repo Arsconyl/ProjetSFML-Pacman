@@ -12,9 +12,10 @@
 
 class VSommet
 {
+public:
+    InfoAStar infoAStar;
 private:
     bool Perso, Gom;
-    InfoAStar infoAStar;
     Vecteur2D position;
 public:
     explicit VSommet (Vecteur2D position, bool Perso = false, bool Gom = true,
@@ -38,17 +39,6 @@ public:
     inline void setPosition (const Vecteur2D &position);
 
 };
-
-VSommet::VSommet (Vecteur2D position, bool Perso, bool Gom, const InfoAStar &infoAStar) : position(position),
-                                                                                          Perso(Perso), Gom(Gom),
-                                                                                          infoAStar(infoAStar)
-{}
-
-VSommet::~VSommet ()
-= default;
-
-VSommet::VSommet (const VSommet &vs) : position(vs.position), Perso(vs.Perso), Gom(vs.Gom), infoAStar(vs.infoAStar)
-{}
 
 inline bool VSommet::isPerso () const
 {
@@ -88,20 +78,6 @@ inline const Vecteur2D &VSommet::getPosition () const
 inline void VSommet::setPosition (const Vecteur2D &position)
 {
     VSommet::position = position;
-}
-
-VSommet::operator string () const
-{
-    ostringstream oss;
-
-    oss << "VSommet : Perso : " << Perso << " Gom : " << Gom << " InfoAStar :" << infoAStar << " Position : "
-        << position;
-    return oss.str();
-}
-
-ostream &operator<< (ostream &o, const VSommet &vs)
-{
-    o << (string) vs;
 }
 
 #endif //PROJETSFML_PACMAN_VSOMMET_H

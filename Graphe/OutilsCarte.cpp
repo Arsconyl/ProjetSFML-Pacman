@@ -49,39 +49,39 @@ return lVC;
 
 /*static*/ Sommet<VSommet> *  OutilsCarte::pere(const Sommet<VSommet> * sommet)
 {
-return (Sommet<VSommet>*)sommet->v.getInfoAStar().pere;
+return (Sommet<VSommet>*)sommet->v.infoAStar.pere;
 }
 
 
 /*static*/ Sommet<VSommet> * & OutilsCarte::pere( Sommet<VSommet> * sommet)
 {
-return (Sommet<VSommet> *&)(sommet->v.getInfoAStar().pere);
+return (Sommet<VSommet> *&)(sommet->v.infoAStar.pere);
 }
 
 /*static*/ int & OutilsCarte::etat( Sommet<VSommet> * sommet)
 {
-return sommet->v.getInfoAStar().etat;
+return sommet->v.infoAStar.etat;
 }
 
 /*static*/ double & OutilsCarte::c( Sommet<VSommet> * sommet)
 {
-return sommet->v.getInfoAStar().c;
+return sommet->v.infoAStar.c;
 }
 
 /*static*/ double & OutilsCarte::h( Sommet<VSommet> * sommet)
 {
-return sommet->v.getInfoAStar().h;
+return sommet->v.infoAStar.h;
 }
 
-/*static*/ /*double OutilsCarte::g( const Sommet<VSommet> * sommet)
+/*static*/ double OutilsCarte::g( const Sommet<VSommet> * sommet)
 {
-return sommet->v.getInfoAStar().g;
-}*/
+return sommet->v.infoAStar.g;
+}
 
 
 /*static*/ double & OutilsCarte::g( Sommet<VSommet> * sommet)
 {
-return sommet->v.getInfoAStar().g;
+return sommet->v.infoAStar.g;
 }
 
 /*static*/ bool OutilsCarte::estFinal(const Sommet<VSommet> * sommet)

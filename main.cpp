@@ -51,8 +51,8 @@ int main()
                 default:
                     break;
             }
-            if (deplacement::gestionDeplacementPacman(pacman, fantome1, B, window.t))
-            if(pacman.getPosition() == fantome1.getPosition())
+            deplacement::gestionDeplacementPacman(pacman, fantome1, B, window.t);
+            if(!pacman.getEtat())
                 window.fenetre.close();
         }
         window.fenetre.clear();

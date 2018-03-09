@@ -12,6 +12,8 @@
 #include "Fantome.h"
 #include <cstdlib>
 #include <random>
+#include "../Graphe/OutilsCarte.h"
+#include "../Graphe/AStar.h"
 
 using namespace sf;
 
@@ -39,11 +41,13 @@ public:
     template<class S, class T>
     static bool gestionDeplacementPacman (Pacman<S, T> &pacman, Fantome<S, T> &fantome, board &B, TransfoAffine2D &t);
     template<class S, class T>
-    static bool gestionDeplacementFantomeLvl1 (Fantome<S, T> &fantome, board &B, TransfoAffine2D &t);
+    static bool gestionDeplacementFantomeLvl1 (Fantome<S, T> &fantome, Pacman<S, T> pacman, board &B, TransfoAffine2D &t);
 
     template<class S, class T>
-    static bool
-    gestionDeplacementFantomeLvl2 (Fantome<S, T> &fantome, Pacman<S, T> pacman, board &B, TransfoAffine2D &t);
+    static bool gestionDeplacementFantomeLvl2 (Fantome<S, T> &fantome, Pacman<S, T> pacman, board &B, TransfoAffine2D &t);
+
+    template<class S, class T>
+    static bool gestionDeplacementFantomeLvl3 (Fantome<S, T> &fantome, Pacman<S, T> pacman, board &B, TransfoAffine2D &t);
 };
 
 template<class S, class T>
@@ -277,48 +281,48 @@ bool deplacement::gestionDeplacementPacman (Pacman<S, T> &pacman, Fantome<S, T> 
 {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1)) //DownLeft
     {
-        deplacement::gestionDeplacementFantomeLvl2(fantome, pacman, B, t);
+        deplacement::gestionDeplacementFantomeLvl3(fantome, pacman, B, t);
         return deplacementPacman(pacman, B, -3, true, t);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2)) //Down
     {
-        deplacement::gestionDeplacementFantomeLvl2(fantome, pacman, B, t);
+        deplacement::gestionDeplacementFantomeLvl3(fantome, pacman, B, t);
         return deplacementPacman(pacman, B, 0, false, t);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad3)) //DownRight
     {
-        deplacement::gestionDeplacementFantomeLvl2(fantome, pacman, B, t);
+        deplacement::gestionDeplacementFantomeLvl3(fantome, pacman, B, t);
         return deplacementPacman(pacman, B, -1, false, t);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4)) //Left
     {
-        deplacement::gestionDeplacementFantomeLvl2(fantome, pacman, B, t);
+        deplacement::gestionDeplacementFantomeLvl3(fantome, pacman, B, t);
         return deplacementPacman(pacman, B, -2, true, t);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6)) //Right
     {
-        deplacement::gestionDeplacementFantomeLvl2(fantome, pacman, B, t);
+        deplacement::gestionDeplacementFantomeLvl3(fantome, pacman, B, t);
         return deplacementPacman(pacman, B, -2, false, t);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad7)) //UpLeft
     {
-        deplacement::gestionDeplacementFantomeLvl2(fantome, pacman, B, t);
+        deplacement::gestionDeplacementFantomeLvl3(fantome, pacman, B, t);
         return deplacementPacman(pacman, B, -1, true, t);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad8)) //Up
     {
-        deplacement::gestionDeplacementFantomeLvl2(fantome, pacman, B, t);
+        deplacement::gestionDeplacementFantomeLvl3(fantome, pacman, B, t);
         return deplacementPacman(pacman, B, 0, true, t);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad9)) //UpRight
     {
-        deplacement::gestionDeplacementFantomeLvl2(fantome, pacman, B, t);
+        deplacement::gestionDeplacementFantomeLvl3(fantome, pacman, B, t);
         return deplacementPacman(pacman, B, -3, false, t);
     }
 }
 
 template<class S, class T>
-bool deplacement::gestionDeplacementFantomeLvl1 (Fantome<S, T> &fantome, board &B, TransfoAffine2D &t)
+bool deplacement::gestionDeplacementFantomeLvl1 (Fantome<S, T> &fantome, Pacman<S, T> pacman, board &B, TransfoAffine2D &t)
 {
     PElement <Sommet<T>> *voisins = B.graphe.voisins(fantome.getPosition());
     int nbVoisins = PElement<Sommet<T>>::taille(voisins), i=1;
@@ -332,19 +336,51 @@ bool deplacement::gestionDeplacementFantomeLvl1 (Fantome<S, T> &fantome, board &
         i++;
     }
     fantome.setPosition(voisins->valeur, t);
+    if(fantome.getPosition() == pacman.getPosition())
+        pacman.toggleEtat();
 
 }
 
 template<class S, class T>
-bool
-deplacement::gestionDeplacementFantomeLvl2 (Fantome<S, T> &fantome, Pacman<S, T> pacman, board &B, TransfoAffine2D &t)
+bool deplacement::gestionDeplacementFantomeLvl2 (Fantome<S, T> &fantome, Pacman<S, T> pacman, board &B, TransfoAffine2D &t)
 {
     if (!aVuPacmanParDir(B, fantome, pacman, t))
     {
         if (!aVuPacmanParTemp(B, fantome, t))
-            return gestionDeplacementFantomeLvl1(fantome, B, t);
+            return gestionDeplacementFantomeLvl1(fantome, pacman, B, t);
+        else
+            pacman.toggleEtat();
     }
+    else
+        pacman.toggleEtat();
 }
+
+template<class S, class T>
+bool deplacement::gestionDeplacementFantomeLvl3 (Fantome<S, T> &fantome, Pacman<S, T> pacman, board &B, TransfoAffine2D &t) {
+    Sommet<VSommet> * resultat;
+    OutilsCarte::cible = pacman.getPosition();
+
+    if(fantome.getPosition() == OutilsCarte::cible)
+        pacman.toggleEtat();
+    cout << pacman.getEtat() << endl;
+
+    resultat = AStarT< Graphe<VArete,VSommet>,Sommet<VSommet> >::aStar( B.graphe, fantome.getPosition(),  OutilsCarte::hh);
+
+    if (resultat == NULL)
+    {
+        cout << "Chemin AStar non trouvé" << endl;
+        return false;
+    }
+
+    else
+    {
+        PElement<Sommet<VSommet>> * chem;
+        chemin(pacman.getPosition(), chem);
+        if(PElement<Sommet<VSommet>>::taille(chem) > 1)
+            fantome.setPosition(chem->suivant->valeur,t);
+        return true;
+    }
+};
 
 
 #endif //PROJETSFML_PACMAN_DEPLACEMENT_H

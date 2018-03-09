@@ -7,7 +7,7 @@ add_executable(ProjetSFML-Pacman
         main.cpp
         Graphe/AElement.h Graphe/AElement.cpp Graphe/Arete.h Graphe/AStar.h Graphe/GElement.h Graphe/Graphe.h
         Graphe/InfoAStar.h Graphe/InfoAStar.cpp Graphe/PElement.h Graphe/Sommet.h Graphe/VSommet.h Graphe/VArete.h
-        Graphe/OutilsCarte.h Graphe/OutilsCarte.cpp
+        Graphe/OutilsCarte.h Graphe/OutilsCarte.cpp Graphe/VArete.cpp Graphe/VSommet.cpp
 
         Screen/backgroundRender.h Screen/FenetreSFML.h Screen/FenetreGrapheSFML.h Screen/AlgebreLineaire.h
         Screen/Matrice22.h Screen/TransfoAffine2D.h Screen/Vecteur2D.h Screen/Reels.h

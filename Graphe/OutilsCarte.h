@@ -51,7 +51,7 @@ static Sommet<VSommet> * & pere( Sommet<VSommet> * sommet);
 static int & etat( Sommet<VSommet> * sommet);
 static double & c( Sommet<VSommet> * sommet);
 static double & h( Sommet<VSommet> * sommet);
-//static double g( const Sommet<VSommet> * sommet);
+static double g( const Sommet<VSommet> * sommet);
 static double & g( Sommet<VSommet> * sommet);
 
 static bool estFinal(const Sommet<VSommet> * sommet);
