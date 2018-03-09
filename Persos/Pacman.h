@@ -6,7 +6,6 @@
 #define GRAPHES_PACMAN_H
 
 #include "Personnage.h"
-#include "PersoGraphique.h"
 
 template<class S, class T>
 class Pacman : public Personnage<S, T>

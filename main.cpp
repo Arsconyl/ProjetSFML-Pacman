@@ -9,6 +9,7 @@ using namespace std;
 using namespace sf;
 int main()
 {
+    srand(static_cast<unsigned int>(time(NULL)));
     board B;
     Vecteur2D coinBG(-1, -1);
     Vecteur2D coinHD(5, 5);

@@ -41,7 +41,7 @@ inline bool dessineSommet (RenderWindow &fenetre, const TransfoAffine2D &t, cons
 
     CircleShape disque((float) 30);
     disque.setFillColor(Color::Black);
-    float epaisseurBord = (float) (0.15 * 30);
+    //float epaisseurBord = (0.15f * 30.0f);
     disque.setOutlineThickness(8);
     disque.setOutlineColor(Color::Cyan);
 
@@ -135,7 +135,7 @@ DONNEES : titre : titre de la fen�tre
 */
     FenetreGrapheSFML (const string &titre,
                        const Vecteur2D &coinBG, const Vecteur2D &coinHD,
-                       const int largeur, const int hauteur) :
+                       const unsigned int largeur, const unsigned int hauteur) :
             fenetre(sf::VideoMode(largeur, hauteur), titre)
     {
         fenetre.clear();

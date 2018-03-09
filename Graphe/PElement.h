@@ -35,9 +35,9 @@ public:
     Le plus simple est d'utiliser un ostringstream intermédiaire.
     On suppose que l'opérateur << d'écriture sur un flux est défini pour la classe T.*/
     static const string toString(const PElement<T> * p,
-                                 string debut="( ",
-                                 string separateur = ", ",
-                                 string fin=")")
+                                 const string debut = "( ",
+                                 const string separateur = ", ",
+                                 const string fin = ")")
     {
         std::ostringstream o;
         o << debut;

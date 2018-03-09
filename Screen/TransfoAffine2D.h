@@ -26,7 +26,7 @@ public:
 /**
 par d�faut la transformation construite est l'application identit� : v |---> v
 */
-    TransfoAffine2D (const Matrice22 &M = Matrice22(), const Vecteur2D &B = Vecteur2D()) : M(M), B(B)
+    explicit TransfoAffine2D (const Matrice22 &M = Matrice22(), const Vecteur2D &B = Vecteur2D()) : M(M), B(B)
     {}
 
     const Vecteur2D applique (const Vecteur2D &v) const

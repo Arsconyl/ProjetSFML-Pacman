@@ -47,7 +47,7 @@ met � jour le degr� des sommets que cette nouvelle ar�te va d�connecter
         fin->degre--;
     }
 
-    operator string () const
+    explicit operator string () const
     {
         ostringstream oss;
 

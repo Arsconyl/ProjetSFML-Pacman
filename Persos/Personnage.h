@@ -7,6 +7,7 @@
 
 #include "../Graphe/Sommet.h"
 #include "../World/Thing.h"
+#include "Animation.h"
 #include <string>
 
 using namespace std;
@@ -36,7 +37,8 @@ public:
     virtual void setPosition (Sommet<T> *position, TransfoAffine2D t);
 };
 template<class S, class T>
-Personnage<S, T>::Personnage (Personnage<S, T> &p):Thing<S, T>(p), animation(p.animation)
+Personnage<S, T>::Personnage (Personnage<S, T> &p):Thing<S, T>(p), body(p.body), animation(p.animation), row(p.row),
+                                                   speed(p.speed), movement(p.movement), texture(p.texture)
 {};
 
 template<class S, class T>
@@ -144,8 +146,6 @@ void Personnage<S, T>::Update (float deltaTime)
         {
 
         }
-
-
     }
     animation.Update(row, deltaTime);
     body.setTextureRect(animation._textureRect);

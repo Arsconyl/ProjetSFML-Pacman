@@ -6,14 +6,14 @@
 #include <iostream>
 #include <chrono>
 
-#define LEFT 1
+/*#define LEFT 1
 #define RIGHT 0
 #define UP 2
 #define DOWN 3
 #define UPLEFT 4
 #define UPRIGHT 5
 #define DOWNLEFT 6
-#define DOWNRIGHT 7
+#define DOWNRIGHT 7*/
 
 using namespace std;
 using namespace sf;

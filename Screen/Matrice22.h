@@ -4,7 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <math.h>
+#include <cmath>
 #include "Vecteur2D.h"
 
 

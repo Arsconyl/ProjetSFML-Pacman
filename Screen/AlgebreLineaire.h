@@ -8,7 +8,7 @@
 #ifndef ALGEBRELINEAIRE_H_
 #define ALGEBRELINEAIRE_H_
 
-#include <math.h>
+#include <cmath>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -90,10 +90,10 @@ public:
     S x;
     T y;
 
-    Paire (const S &x = (S) 0, const T &y = (T) -1) : x(x), y(y)
+    explicit Paire (const S &x = (S) 0, const T &y = (T) -1) : x(x), y(y)
     {}
 
-    operator string () const
+    explicit operator string () const
     {
         ostringstream o;
         o << "( " << x << ", " << y << ")";

@@ -7,7 +7,6 @@
 #include "../Screen/FenetreSFML.h"
 #include "../Screen/FenetreGrapheSFML.h"
 #include "../Screen/TransfoAffine2D.h"
-#include "../Persos/PersoGraphique.h"
 
 using namespace std;
 

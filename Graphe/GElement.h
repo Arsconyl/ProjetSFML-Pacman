@@ -26,7 +26,13 @@ class GElement : public AElement
 public:
 T v;
 GElement(const int clef, const T & v): AElement(clef), v(v) {}
-operator string() const { ostringstream o; o << this->AElement::operator string() << ", v = " << v; return o.str();}
+
+    explicit operator string () const
+    {
+        ostringstream o;
+        o << this->AElement::operator string() << ", v = " << v;
+        return o.str();
+    }
 
 friend ostream & operator << (ostream & os, const GElement<T>& gElement) {return os << (string) gElement;}
 };

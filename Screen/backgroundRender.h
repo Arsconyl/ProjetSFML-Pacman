@@ -81,7 +81,7 @@ bool backgroundRender<S, T>::dessine(Sommet<T> *sommet)
 
 template<class S, class T>
 backgroundRender<S, T>::~backgroundRender ()
-= default;
+{};
 
 
 #endif //GRAPHES_RenderTexture_H

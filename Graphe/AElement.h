@@ -22,9 +22,9 @@ class AElement
 public:
     int clef;
 
-    AElement(const int clef);
+    explicit AElement (const int clef);
 
-    operator string() const;
+    virtual operator string () const;
 
     friend ostream &operator<<(ostream &os, const AElement &aElement);
 };

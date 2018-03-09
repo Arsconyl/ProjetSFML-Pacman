@@ -576,11 +576,10 @@ bool Graphe<S, T>::dessine(Fenetre &Fen) const
 
 // ------------------------ on dessine les arêtes --------------------------
 
-    if (!this->dessineToutesAretes(Fen)) return false;
+    return this->dessineToutesAretes(Fen) && this->dessineTousSommets(Fen);
 
 // ------------------------ on dessine les sommets --------------------------
 
-    return this->dessineTousSommets(Fen);
 }
 
 /**

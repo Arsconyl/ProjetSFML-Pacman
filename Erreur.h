@@ -16,8 +16,12 @@ class Erreur : public exception
 public:
 string message;
 Erreur() : message("Erreur !"){}
-Erreur(const string & messageErreur) : Erreur() {this->message +=" "+messageErreur;}
-Erreur(const char * messageErreur) : Erreur((string)messageErreur){}
+
+    explicit Erreur (const string &messageErreur) : Erreur()
+    { this->message += " " + messageErreur; }
+
+    explicit Erreur (const char *messageErreur) : Erreur((string) messageErreur)
+    {}
 
 /**
  * lance une exception si d est vide
@@ -25,7 +29,8 @@ Erreur(const char * messageErreur) : Erreur((string)messageErreur){}
 
 inline static void testeNonVide(const void *d, const char * message);
 
-operator string() const {return this->message;}
+    explicit operator string () const
+    { return this->message; }
 
 virtual const char* what() const noexcept {return ((string)(*this)).c_str();}
 };

@@ -25,7 +25,7 @@ Un sommet est toujours cr�� isol� (c'est-�-dire qu'il n'y a pas d'ar�t
 */
 Sommet(const int clef, const T & v):GElement<T>(clef,v),degre(0){}
 
-operator string () const;
+    explicit operator string () const;
 
 };
 

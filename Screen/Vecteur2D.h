@@ -13,7 +13,7 @@
 #include <string>
 #include <cmath>
 #include "AlgebreLineaire.h"
-#include <float.h>
+#include <cfloat>
 #include "Reels.h"
 
 
@@ -100,7 +100,7 @@ public:
         yArrondi = (T) y;
     }
 
-    operator string () const
+    explicit operator string () const
     {
         ostringstream os;
         os << "( " << x << ", " << y << ")";

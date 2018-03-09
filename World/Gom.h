@@ -22,7 +22,7 @@ template<class S, class T>
 Gom<S, T>::Gom (Sommet<T> *position, string image, string nom, int etat):Thing<S, T>(position, image, nom, etat)
 {}
 template<class S, class T>
-Gom<S, T>::~Gom(){}
+Gom<S, T>::~Gom ()= default;
 
 
 #endif //PROJETSFML_PACMAN_GOM_H

@@ -31,10 +31,10 @@ private:
     static bool aVuPacmanParDir (board &B, Fantome<S, T> &fantome, Pacman<S, T> pacman, TransfoAffine2D &t);
 
     template<class S, class T>
-    static Sommet<T> *recherchePacmanParTemp (board &B, Pacman<S, T> pacman, Fantome<S, T> &fantome);
+    static Sommet<T> *recherchePacmanParTemp (board &B, Fantome<S, T> &fantome);
 
     template<class S, class T>
-    static bool aVuPacmanParTemp (board &B, Fantome<S, T> &fantome, Pacman<S, T> pacman, TransfoAffine2D &t);
+    static bool aVuPacmanParTemp (board &B, Fantome<S, T> &fantome, TransfoAffine2D &t);
 public:
     template<class S, class T>
     static bool gestionDeplacementPacman (Pacman<S, T> &pacman, Fantome<S, T> &fantome, board &B, TransfoAffine2D &t);
@@ -205,7 +205,7 @@ bool deplacement::aVuPacmanParDir (board &B, Fantome<S, T> &fantome, Pacman<S, T
 }
 
 template<class S, class T>
-Sommet<T> *deplacement::recherchePacmanParTemp (board &B, Pacman<S, T> pacman, Fantome<S, T> &fantome)
+Sommet<T> *deplacement::recherchePacmanParTemp (board &B, Fantome<S, T> &fantome)
 {
     /*sens à vrai pour deplacement vers sommet à clef inférieure(haut et gauche) et faux si deplacement vers sommet à clef supérieure (bas et droite)*/
     PElement<pair<Sommet<T> *, Arete<S, T> *> > *adjacences = B.graphe.adjacences(fantome.getPosition());
@@ -261,9 +261,9 @@ Sommet<T> *deplacement::recherchePacmanParTemp (board &B, Pacman<S, T> pacman, F
 }
 
 template<class S, class T>
-bool deplacement::aVuPacmanParTemp (board &B, Fantome<S, T> &fantome, Pacman<S, T> pacman, TransfoAffine2D &t)
+bool deplacement::aVuPacmanParTemp (board &B, Fantome<S, T> &fantome, TransfoAffine2D &t)
 {
-    Sommet<T> *trouve = recherchePacmanParTemp(B, pacman, fantome);
+    Sommet<T> *trouve = recherchePacmanParTemp(B, fantome);
     if (trouve)
     {
         fantome.setPosition(trouve, t);
@@ -322,10 +322,10 @@ bool deplacement::gestionDeplacementFantomeLvl1 (Fantome<S, T> &fantome, board &
 {
     PElement <Sommet<T>> *voisins = B.graphe.voisins(fantome.getPosition());
     int nbVoisins = PElement<Sommet<T>>::taille(voisins), i=1;
-    //int dir = rand() % nbVoisins;
-    default_random_engine generator;
-    uniform_int_distribution<int> distribution(1, nbVoisins);
-    int dir = distribution(generator);
+    int dir = rand() % nbVoisins;
+    //default_random_engine generator;
+    //uniform_int_distribution<int> distribution(1, nbVoisins);
+    //int dir = distribution(generator);
     while(i <= dir)
     {
         voisins = voisins->suivant;
@@ -341,7 +341,7 @@ deplacement::gestionDeplacementFantomeLvl2 (Fantome<S, T> &fantome, Pacman<S, T>
 {
     if (!aVuPacmanParDir(B, fantome, pacman, t))
     {
-        if (!aVuPacmanParTemp(B, fantome, pacman, t))
+        if (!aVuPacmanParTemp(B, fantome, t))
             return gestionDeplacementFantomeLvl1(fantome, B, t);
     }
 }
