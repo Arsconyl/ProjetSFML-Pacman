@@ -26,6 +26,7 @@ public:
             sommets.push_back(graphe.creeSommet(VSommet(Vecteur2D(i / 5, i % 5))));
         }
 
+
         aretes.push_back(graphe.creeArete(-2, sommets[0], sommets[5]));
         aretes.push_back(graphe.creeArete(-1, sommets[0], sommets[6]));
         aretes.push_back(graphe.creeArete(0, sommets[0], sommets[1]));

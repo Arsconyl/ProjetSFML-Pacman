@@ -48,6 +48,23 @@ inline bool dessineSommet (RenderWindow &fenetre, const TransfoAffine2D &t, cons
     Vector2f p1 = vecteur2DToVector2f(position1);
     disque.setPosition(p1);
     fenetre.draw(disque);
+
+    if (vSommet.isGom())
+    {
+        sf::Image img;
+        img.loadFromFile("images/superpellet.png");
+        img.createMaskFromColor(Color::Black);
+        sf::Texture texture;
+        if (!texture.loadFromImage(img))
+        {
+            Erreur("Chargement pellet");
+        }
+        sf::Sprite sprite;
+        sprite.setTexture(texture);
+        sprite.setPosition(vecteur2DToVector2f(position - 6 * Vecteur2D(1, 1)));
+        fenetre.draw(sprite);
+    }
+
     return true;
 }
 

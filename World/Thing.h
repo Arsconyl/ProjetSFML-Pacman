@@ -13,13 +13,15 @@ using namespace std;
 template<class S, class T>
 class Thing
 {
-private:
+public:
     Sommet<T> *position;
+private:
     int etat;
     string nom, image;
 public:
     Sommet<T>* getPosition () const;
-    void setPosition (Sommet<T> *position);
+
+    virtual void setPosition (Sommet<T> *position);
 public:
     explicit Thing<S, T>(Sommet<T> *position, string image, string nom, int etat=1);
     Thing<S, T>(Thing<S, T> &p);
@@ -32,7 +34,7 @@ public:
     const string &getImage () const;
     void setImage (const string &sprite);
 
-    const void dessine (FenetreGrapheSFML &window);
+    virtual const void dessine (FenetreGrapheSFML &window);
 };
 
 template<class S, class T>

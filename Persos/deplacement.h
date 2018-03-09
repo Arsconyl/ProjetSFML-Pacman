@@ -11,6 +11,7 @@
 #include "../World/board.h"
 #include "Fantome.h"
 #include <cstdlib>
+#include <random>
 
 using namespace sf;
 
@@ -24,7 +25,7 @@ private:
     static bool deplacementFantome (Fantome<S, T> &fantome, board &B, int dir, bool sens);
 
     template<class S, class T>
-    static bool recherchePacmanParDir (board &B, Pacman<S, T> pacman, Fantome<S, T> &fantome, int dir, bool sens);
+    static bool recherchePacmanParDir (board &B, Pacman<S, T> pacman, Sommet<T> *actual, int dir, bool sens);
 
     template<class S, class T>
     static bool aVuPacmanParDir (board &B, Fantome<S, T> &fantome, Pacman<S, T> pacman);
@@ -36,7 +37,7 @@ private:
     static bool aVuPacmanParTemp (board &B, Fantome<S, T> &fantome, Pacman<S, T> pacman);
 public:
     template<class S, class T>
-    static bool gestionDeplacementPacman(Pacman<S, T> &pacman, board &B);
+    static bool gestionDeplacementPacman (Pacman<S, T> &pacman, Fantome<S, T> &fantome, board &B);
     template<class S, class T>
     static bool gestionDeplacementFantomeLvl1(Fantome<S, T> &fantome, board &B);
 
@@ -120,70 +121,83 @@ bool deplacement::deplacementFantome (Fantome<S, T> &fantome, board &B, int dir,
 }
 
 template<class S, class T>
-bool deplacement::recherchePacmanParDir (board &B, Pacman<S, T> pacman, Fantome<S, T> &fantome, int dir, bool sens)
+bool deplacement::recherchePacmanParDir (board &B, Pacman<S, T> pacman, Sommet<T> *actual, int dir, bool sens)
 {
     /*sens à vrai pour deplacement vers sommet à clef inférieure(haut et gauche) et faux si deplacement vers sommet à clef supérieure (bas et droite)*/
-    PElement<pair<Sommet<T> *, Arete<S, T> *> > *adjacences = B.graphe.adjacences(fantome.getPosition());
-    if (sens)
+    if (actual == pacman.getPosition())
+        return true;
+    else
     {
-        while (adjacences)
+        PElement<pair<Sommet<T> *, Arete<S, T> *> > *adjacences = B.graphe.adjacences(actual);
+        if (sens)
         {
-            if ((adjacences->valeur->second->v.getDir() == dir) &&
-                (adjacences->valeur->first->clef < fantome.getPosition()->clef))
+            while (adjacences)
             {
-                return true;
-            } else
-                adjacences = adjacences->suivant;
-        }
-        return false;
-    } else
-    {
-        while (adjacences)
+                if ((adjacences->valeur->second->v.getDir() == dir) &&
+                    (adjacences->valeur->first->clef < actual->clef))
+                {
+                    return recherchePacmanParDir(B, pacman, adjacences->valeur->first, dir, sens);
+                } else
+                    adjacences = adjacences->suivant;
+            }
+            return false;
+        } else
         {
-            if ((adjacences->valeur->second->v.getDir() == dir) &&
-                (adjacences->valeur->first->clef > fantome.getPosition()->clef))
+            while (adjacences)
             {
-                return true;
-            } else
-                adjacences = adjacences->suivant;
+                if ((adjacences->valeur->second->v.getDir() == dir) &&
+                    (adjacences->valeur->first->clef > actual->clef))
+                {
+                    return recherchePacmanParDir(B, pacman, adjacences->valeur->first, dir, sens);
+                } else
+                    adjacences = adjacences->suivant;
+            }
+            return false;
         }
-        return false;
     }
 }
 
 template<class S, class T>
 bool deplacement::aVuPacmanParDir (board &B, Fantome<S, T> &fantome, Pacman<S, T> pacman)
 {
-    if (recherchePacmanParDir(B, pacman, fantome, -3, true)) //DownLeft
+    if (recherchePacmanParDir(B, pacman, fantome.getPosition(), -3, true)) //DownLeft
     {
+        cout << "DownLeft" << endl;
         return deplacementFantome(fantome, B, -3, true);
     }
-    if (recherchePacmanParDir(B, pacman, fantome, 0, false)) //Down
+    if (recherchePacmanParDir(B, pacman, fantome.getPosition(), 0, false)) //Down
     {
+        cout << "Down" << endl;
         return deplacementFantome(fantome, B, 0, false);
     }
-    if (recherchePacmanParDir(B, pacman, fantome, -1, false)) //DownRight
+    if (recherchePacmanParDir(B, pacman, fantome.getPosition(), -1, false)) //DownRight
     {
+        cout << "DownRight" << endl;
         return deplacementFantome(fantome, B, -1, false);
     }
-    if (recherchePacmanParDir(B, pacman, fantome, -2, true)) //Left
+    if (recherchePacmanParDir(B, pacman, fantome.getPosition(), -2, true)) //Left
     {
+        cout << "Left" << endl;
         return deplacementFantome(fantome, B, -2, true);
     }
-    if (recherchePacmanParDir(B, pacman, fantome, -2, false)) //Right
+    if (recherchePacmanParDir(B, pacman, fantome.getPosition(), -2, false)) //Right
     {
+        cout << "Right" << endl;
         return deplacementFantome(fantome, B, -2, false);
     }
-    if (recherchePacmanParDir(B, pacman, fantome, -1, true)) //UpLeft
+    if (recherchePacmanParDir(B, pacman, fantome.getPosition(), -1, true)) //UpLeft
     {
+        cout << "UpLeft" << endl;
         return deplacementFantome(fantome, B, -1, true);
     }
-    if (recherchePacmanParDir(B, pacman, fantome, 0, true)) //Up
+    if (recherchePacmanParDir(B, pacman, fantome.getPosition(), 0, true)) //Up
     {
+        cout << "Up" << endl;
         return deplacementFantome(fantome, B, 0, true);
     }
-    if (recherchePacmanParDir(B, pacman, fantome, -3, false)) //UpRight
+    if (recherchePacmanParDir(B, pacman, fantome.getPosition(), -3, false)) //UpRight
     {
+        cout << "UpRight" << endl;
         return deplacementFantome(fantome, B, -3, false);
     }
 
@@ -258,38 +272,46 @@ bool deplacement::aVuPacmanParTemp (board &B, Fantome<S, T> &fantome, Pacman<S, 
 }
 
 template<class S, class T>
-bool deplacement::gestionDeplacementPacman (Pacman<S, T> &pacman, board &B)
+bool deplacement::gestionDeplacementPacman (Pacman<S, T> &pacman, Fantome<S, T> &fantome, board &B)
 {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1)) //DownLeft
     {
+        deplacement::gestionDeplacementFantomeLvl2(fantome, pacman, B);
         return deplacementPacman(pacman, B, -3, true);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2)) //Down
     {
+        deplacement::gestionDeplacementFantomeLvl2(fantome, pacman, B);
         return deplacementPacman(pacman, B, 0, false);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad3)) //DownRight
     {
+        deplacement::gestionDeplacementFantomeLvl2(fantome, pacman, B);
         return deplacementPacman(pacman, B, -1, false);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4)) //Left
     {
+        deplacement::gestionDeplacementFantomeLvl2(fantome, pacman, B);
         return deplacementPacman(pacman, B, -2, true);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6)) //Right
     {
+        deplacement::gestionDeplacementFantomeLvl2(fantome, pacman, B);
         return deplacementPacman(pacman, B, -2, false);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad7)) //UpLeft
     {
+        deplacement::gestionDeplacementFantomeLvl2(fantome, pacman, B);
         return deplacementPacman(pacman, B, -1, true);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad8)) //Up
     {
+        deplacement::gestionDeplacementFantomeLvl2(fantome, pacman, B);
         return deplacementPacman(pacman, B, 0, true);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad9)) //UpRight
     {
+        deplacement::gestionDeplacementFantomeLvl2(fantome, pacman, B);
         return deplacementPacman(pacman, B, -3, false);
     }
 }
@@ -299,7 +321,10 @@ bool deplacement::gestionDeplacementFantomeLvl1(Fantome<S, T> &fantome, board &B
 {
     PElement <Sommet<T>> *voisins = B.graphe.voisins(fantome.getPosition());
     int nbVoisins = PElement<Sommet<T>>::taille(voisins), i=1;
-    int dir = rand() % nbVoisins;
+    //int dir = rand() % nbVoisins;
+    default_random_engine generator;
+    uniform_int_distribution<int> distribution(1, nbVoisins);
+    int dir = distribution(generator);
     while(i <= dir)
     {
         voisins = voisins->suivant;
@@ -312,14 +337,11 @@ bool deplacement::gestionDeplacementFantomeLvl1(Fantome<S, T> &fantome, board &B
 template<class S, class T>
 bool deplacement::gestionDeplacementFantomeLvl2 (Fantome<S, T> &fantome, Pacman<S, T> pacman, board &B)
 {
-    //if(aVuPacmanParDir(B, fantome, pacman))
-    //    return true;
-    if (aVuPacmanParTemp(B, fantome, pacman))
+    if (!aVuPacmanParDir(B, fantome, pacman))
     {
-        return true;
-    } else
-        return gestionDeplacementFantomeLvl1(fantome, B);
-
+        if (!aVuPacmanParTemp(B, fantome, pacman))
+            return gestionDeplacementFantomeLvl1(fantome, B);
+    }
 }
 
 

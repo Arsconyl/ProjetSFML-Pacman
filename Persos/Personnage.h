@@ -23,7 +23,11 @@ template<class S, class T>
 Personnage<S, T>::Personnage(Personnage<S, T> &p):Thing<S, T>(p){};
 
 template<class S, class T>
-Personnage<S, T>::Personnage(Sommet<T> *position, string nom, string image, int etat):Thing<S, T>(position, image, nom, etat){}
+Personnage<S, T>::Personnage (Sommet<T> *position, string nom, string image, int etat):Thing<S, T>(position, image, nom,
+                                                                                                   etat)
+{
+    this->getPosition()->v.setGom(false);
+}
 template<class S, class T>
 Personnage<S, T>::~Personnage(){};
 
