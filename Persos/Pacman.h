@@ -6,30 +6,37 @@
 #define GRAPHES_PACMAN_H
 
 #include "Personnage.h"
+#include "PersoGraphique.h"
 
 template<class S, class T>
 class Pacman : public Personnage<S, T>
 {
 public:
-    explicit Pacman<S, T>(Sommet<T> *position, string image, string nom, int etat=1);
+    explicit Pacman<S, T> (Sommet<T> *position, string image, string nom, Texture *texture, Vector2u imageCount,
+                           float switchTime, float speed, TransfoAffine2D t, int etat = 1);
     Pacman<S, T>(Pacman &p);
     virtual ~Pacman ();
 
-    void setPosition (Sommet<T> *position) override;
+    void setPosition (Sommet<T> *position, TransfoAffine2D &t);
 
     //const void dessine (FenetreGrapheSFML &window) override;
 };
 template<class S, class T>
 Pacman<S, T>::Pacman(Pacman<S, T> &p):Personnage<S, T>(p){}
 template<class S, class T>
-Pacman<S, T>::Pacman(Sommet<T> *position, string image, string nom, int etat):Personnage<S, T>(position, image, nom, etat){}
+Pacman<S, T>::Pacman (Sommet<T> *position, string nom, string image, Texture *texture, Vector2u imageCount,
+                      float switchTime, float speed, TransfoAffine2D t, int etat):Personnage<S, T>(position, image, nom,
+                                                                                                   texture, imageCount,
+                                                                                                   switchTime, speed, t,
+                                                                                                   etat)
+{}
 template<class S, class T>
 Pacman<S, T>::~Pacman(){}
 
 template<class S, class T>
-void Pacman<S, T>::setPosition (Sommet<T> *position)
+void Pacman<S, T>::setPosition (Sommet<T> *position, TransfoAffine2D &t)
 {
-    Thing<S, T>::setPosition(position);
+    Personnage<S, T>::setPosition(position, t);
     this->getPosition()->v.setGom(false);
 }
 

@@ -7,7 +7,7 @@ add_executable(ProjetSFML-Pacman
         main.cpp
         Graphe/AElement.h Graphe/AElement.cpp Graphe/Arete.h Graphe/AStar.h Graphe/GElement.h Graphe/Graphe.h Graphe/InfoAStar.h Graphe/InfoAStar.cpp Graphe/PElement.h Graphe/Sommet.h Graphe/VSommet.h
         Screen/Animation.h Screen/backgroundRender.h Screen/FenetreSFML.h Screen/FenetreGrapheSFML.h Screen/AlgebreLineaire.h Screen/Matrice22.h Screen/TransfoAffine2D.h Screen/Vecteur2D.h Screen/Reels.h
-        Persos/Pacman.h Persos/Fantome.h Persos/Personnage.h Persos/deplacement.h
+        Persos/Pacman.h Persos/Fantome.h Persos/Personnage.h Persos/deplacement.h Persos/Animation.cpp Persos/Animation.h Persos/PersoGraphique.cpp Persos/PersoGraphique.h
         World/board.h World/Gom.h World/Thing.h
         Erreur.h
         Graphe/VArete.h)
