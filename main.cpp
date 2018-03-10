@@ -4,11 +4,22 @@
 #include "Persos/Pacman.h"
 #include "Persos/Fantome.h"
 #include "Persos/deplacement.h"
+#include "Partie.h"
 
 using namespace std;
 using namespace sf;
+
+int score = 0;
+
+void incrementScore()
+{
+    score +=100;
+}
+
+
 int main()
 {
+    /*
     srand(static_cast<unsigned int>(time(NULL)));
     board B;
     Vecteur2D coinBG(-1, -1);
@@ -53,7 +64,7 @@ int main()
     fantomes.push_back(&fantome2);
     fantomes.push_back(&fantome3);*/
 
-    while (window.fenetre.isOpen())
+    /*while (window.fenetre.isOpen())
     {
         sf::Event event{};
         deltatime = clock.restart().asSeconds();
@@ -86,5 +97,41 @@ int main()
         pacman.dessine(window);
         window.fenetre.display();
     }
+     */
+    Vecteur2D coinBG(-1, -1);
+    Vecteur2D coinHD(5, 5);
+    board B;
+    FenetreGrapheSFML window("PacmanSFML !", coinBG, coinHD, 1280, 720);
+
+    Texture texturesPacman = Texture(), texturesFantome1 = Texture(), texturesFantome2 = Texture(), texturesFantome3 = Texture();
+    if (!texturesPacman.loadFromFile("imgpacman/TexturesPacman.png"))
+        throw ("Erreur lors du chargement des textures.");
+    if (!texturesFantome1.loadFromFile("imgpacman/Ghost-B.png"))
+        throw ("Erreur lors du chargement des textures.");
+    if (!texturesFantome2.loadFromFile("imgpacman/Ghost-R.png"))
+        throw ("Erreur lors du chargement des textures.");
+    if (!texturesFantome3.loadFromFile("imgpacman/Ghost-Y.png"))
+        throw ("Erreur lors du chargement des textures.");
+
+    Pacman pacman(B.sommets[0], "Pacman", "pacmanRight", &texturesPacman, Vector2u(3, 8), 0.125f,
+                  100.0, window.t, 1);
+    Fantome fantome1(B.sommets[24], "ghost1", "ghost1", &texturesFantome1, Vector2u(3, 8), 0.125f,
+                     100.0, window.t, 1),
+            fantome2(B.sommets[23], "ghost2", "ghost2", &texturesFantome2, Vector2u(3, 8), 0.125f, 100.0, window.t, 1),
+            fantome3(B.sommets[22], "ghost3", "ghost3", &texturesFantome3, Vector2u(3, 8), 0.125f, 100.0, window.t, 1);
+
+    vector<Fantome*> fantomes;
+    fantomes.push_back(&fantome1);
+    fantomes.push_back(&fantome2);
+    fantomes.push_back(&fantome3);
+
+    Partie p = Partie::Instance();
+    p.lancerPartie(window, pacman, fantomes, B);
+
     return 0;
+
+
+
+
+
 }

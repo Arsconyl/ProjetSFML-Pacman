@@ -19,6 +19,7 @@ public:
     vector<Sommet<VSommet> *> sommets;
     vector<Arete<VArete, VSommet> *> aretes;
 
+
     board()
     {
         for (unsigned int i = 0; i < 25; i++)
@@ -95,6 +96,25 @@ public:
             aretes[i]->v.operator--();
         }
     }
+
+    bool aMangayTouteGommes() const
+    {
+        for (Sommet<VSommet> * s: sommets)
+        {
+            if (s->v.isGom()) return false;
+        }
+        return true;
+    }
+
+    void reinitialiserGommes()
+    {
+        for (Sommet<VSommet> * s: sommets)
+        {
+            s->v.setGom(true);
+        }
+    }
+
+
 };
 
 

@@ -19,7 +19,7 @@ add_executable(ProjetSFML-Pacman
 
         Erreur.h
 
-        )
+        Partie.cpp Partie.h World/Thing.cpp Persos/Personnage.cpp Persos/Pacman.cpp Persos/Fantome.cpp Persos/deplacement.cpp Screen/FenetreGrapheSFML.cpp)
 # Detect and add SFML
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 find_package(SFML REQUIRED system window graphics network audio)
