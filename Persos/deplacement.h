@@ -22,7 +22,6 @@ class deplacement
 private:
     
     static bool deplacementPacman (Pacman &pacman, board &B, int dir, bool sens, TransfoAffine2D &t);
-
     
     static bool deplacementFantome (Fantome &fantome, Pacman &pacman, board &B, int dir, bool sens, TransfoAffine2D &t);
 
@@ -39,7 +38,7 @@ private:
     static bool aVuPacmanParTemp (board &B, Fantome &fantome, Pacman &pacman, TransfoAffine2D &t);
 public:
     
-    static bool gestionDeplacementPacman (Pacman &pacman, Fantome &fantome, board &B, TransfoAffine2D &t, bool (*lvlFantome)(Fantome &fantome, Pacman &pacman, board &B, TransfoAffine2D &t));
+    static bool gestionPartie (Pacman &pacman, vector<Fantome*> &fantome, board &B, TransfoAffine2D &t, bool (*lvlFantome)(Fantome &fantome, Pacman &pacman, board &B, TransfoAffine2D &t));
     
     static bool gestionDeplacementFantomeLvl1 (Fantome &fantome, Pacman &pacman, board &B, TransfoAffine2D &t);
 
@@ -276,48 +275,47 @@ bool deplacement::aVuPacmanParTemp (board &B, Fantome &fantome, Pacman &pacman, 
 }
 
 
-bool deplacement::gestionDeplacementPacman (Pacman &pacman, Fantome &fantome, board &B, TransfoAffine2D &t, bool (*lvlFantome)(Fantome &fantome, Pacman &pacman, board &B, TransfoAffine2D &t))
+bool deplacement::gestionPartie (Pacman &pacman, vector<Fantome*> &fantomes, board &B, TransfoAffine2D &t, bool (*lvlFantome)(Fantome &fantome, Pacman &pacman, board &B, TransfoAffine2D &t))
 {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1)) //DownLeft
     {
         if (deplacementPacman(pacman, B, -3, true, t))
-            return lvlFantome(fantome, pacman, B, t);
-
+            return (lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t));
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2)) //Down
     {
         if(deplacementPacman(pacman, B, 0, false, t))
-            return lvlFantome(fantome, pacman, B, t);
+            return lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad3)) //DownRight
     {
        if(deplacementPacman(pacman, B, -1, false, t))
-            return lvlFantome(fantome, pacman, B, t);
+            return lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4)) //Left
     {
         if(deplacementPacman(pacman, B, -2, true, t))
-            return lvlFantome(fantome, pacman, B, t);
+            return lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6)) //Right
     {
         if(deplacementPacman(pacman, B, -2, false, t))
-            return lvlFantome(fantome, pacman, B, t);
+            return lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad7)) //UpLeft
     {
         if(deplacementPacman(pacman, B, -1, true, t))
-            return lvlFantome(fantome, pacman, B, t);
+            return lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad8)) //Up
     {
         if(deplacementPacman(pacman, B, 0, true, t))
-            return lvlFantome(fantome, pacman, B, t);
+            return lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad9)) //UpRight
     {
         if(deplacementPacman(pacman, B, -3, false, t))
-            return lvlFantome(fantome, pacman, B, t);
+            return lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t);
     }
     /*if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1)) //DownLeft
     {
@@ -377,8 +375,7 @@ bool deplacement::gestionDeplacementFantomeLvl1 (Fantome &fantome, Pacman &pacma
         i++;
     }
     fantome.setPosition(voisins->valeur, pacman, t);
-
-
+    return true;
 }
 
 
@@ -389,13 +386,11 @@ bool deplacement::gestionDeplacementFantomeLvl2 (Fantome &fantome, Pacman &pacma
         if (!aVuPacmanParTemp(B, fantome, pacman, t))
             return gestionDeplacementFantomeLvl1(fantome, pacman, B, t);
         else
-            ;
+            return false;
     }
     else
-        ;
+        return false;
 }
-
-
 
 bool deplacement::gestionDeplacementFantomeLvl3 (Fantome &fantome, Pacman &pacman, board &B, TransfoAffine2D &t) {
     Sommet<VSommet> * resultat;

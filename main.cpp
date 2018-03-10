@@ -29,12 +29,17 @@ int main()
     if (!texturesFantome3.loadFromFile("imgpacman/Ghost-Y.png"))
         throw ("Erreur lors du chargement des textures.");
 
-    Pacman pacman(B.sommets[0], "Pacman", "pacmanRight", &texturesPacman, Vector2u(3, 8), 0.125f,
-                                   100.0, window.t, 1);
-    Fantome fantome1(B.sommets[24], "ghost1", "ghost1", &texturesFantome1, Vector2u(3, 8), 0.125f,
-                                      100.0, window.t, 1),
-            fantome2(B.sommets[23], "ghost2", "ghost2", &texturesFantome2, Vector2u(3, 8), 0.125f, 100.0, window.t, 1),
-            fantome3(B.sommets[22], "ghost3", "ghost3", &texturesFantome3, Vector2u(3, 8), 0.125f, 100.0, window.t, 1);
+    Pacman pacman(B.sommets[0], "Pacman", "pacmanRight", &texturesPacman, Vector2u(3, 8), 0.125f, 100.0, window.t, 1);
+    vector<Fantome*> fantomes;
+
+    fantomes.push_back(new Fantome(B.sommets[24], "ghost1", "ghost1", &texturesFantome1, Vector2u(3, 8), 0.125f, 100.0, window.t, 1));
+    fantomes.push_back(new Fantome(B.sommets[23], "ghost2", "ghost2", &texturesFantome2, Vector2u(3, 8), 0.125f, 100.0, window.t, 1));
+    fantomes.push_back(new Fantome(B.sommets[22], "ghost3", "ghost3", &texturesFantome3, Vector2u(3, 8), 0.125f, 100.0, window.t, 1));
+
+    /*fantomes.push_back(&fantome1);
+    fantomes.push_back(&fantome2);
+    fantomes.push_back(&fantome3);*/
+
     while (window.fenetre.isOpen())
     {
         sf::Event event{};
@@ -51,17 +56,18 @@ int main()
                 default:
                     break;
             }
-            deplacement::gestionDeplacementPacman(pacman, fantome1, B, window.t, deplacement::gestionDeplacementFantomeLvl1);
+            deplacement::gestionPartie(pacman, fantomes, B, window.t, deplacement::gestionDeplacementFantomeLvl2);
             if(!pacman.getEtat())
                 window.fenetre.close();
         }
         window.fenetre.clear();
         B.graphe.dessine(window);
-        fantome1.Update(deltatime);
-        fantome1.dessine(window);
-        //fantome2.dessine(window);
-        //fantome3.dessine(window);
-        //fantome4.dessine(window);
+        fantomes[0]->Update(deltatime);
+        fantomes[0]->dessine(window);
+        fantomes[1]->Update(deltatime);
+        fantomes[1]->dessine(window);
+        fantomes[2]->Update(deltatime);
+        fantomes[2]->dessine(window);
         pacman.Update(deltatime);
         pacman.dessine(window);
         window.fenetre.display();
