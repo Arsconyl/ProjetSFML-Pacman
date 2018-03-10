@@ -51,7 +51,7 @@ int main()
                 default:
                     break;
             }
-            deplacement::gestionDeplacementPacman(pacman, fantome1, B, window.t);
+            deplacement::gestionDeplacementPacman(pacman, fantome1, B, window.t, deplacement::gestionDeplacementFantomeLvl1);
             if(!pacman.getEtat())
                 window.fenetre.close();
         }

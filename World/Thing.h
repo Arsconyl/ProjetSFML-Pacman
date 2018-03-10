@@ -27,7 +27,7 @@ public:
     Thing<S, T>(Thing<S, T> &p);
     virtual ~Thing<S, T> ();
 
-    inline void toggleEtat();
+    inline void setEtat(bool etat);
     inline int getEtat() const;
     string getNom () const;
     void setNom (const string &nom);
@@ -47,9 +47,9 @@ template<class S, class T>
 Thing<S, T>::~Thing<S, T>(){};
 
 template<class S, class T>
-inline void Thing<S, T>::toggleEtat()
+inline void Thing<S, T>::setEtat(bool etat)
 {
-    etat = !etat;
+    Thing<S, T>::etat = etat;
 }
 template<class S, class T>
 void Thing<S, T>::setNom(const string &nom)

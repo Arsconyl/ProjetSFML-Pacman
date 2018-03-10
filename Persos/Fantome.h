@@ -19,7 +19,7 @@ public:
     Fantome<S, T>(Fantome &p);
     virtual ~Fantome ();
 
-    void setPosition (Sommet<T> *position, TransfoAffine2D &t);
+    void setPosition (Sommet<T> *position, Pacman<S,T> &pacman, TransfoAffine2D &t);
 };
 template<class S, class T>
 Fantome<S, T>::Fantome(Fantome<S, T> &p):Personnage<S, T>(p){}
@@ -37,9 +37,11 @@ Fantome<S, T>::~Fantome ()
 {};
 
 template<class S, class T>
-void Fantome<S, T>::setPosition (Sommet<T> *position, TransfoAffine2D &t)
+void Fantome<S, T>::setPosition (Sommet<T> *position, Pacman<S, T> &pacman, TransfoAffine2D &t)
 {
     Personnage<S, T>::setPosition(position, t);
+    if(this->position == pacman.getPosition())
+        pacman.setEtat(false);
 }
 
 
