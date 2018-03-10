@@ -18,7 +18,7 @@ public:
     Graphe<VArete, VSommet> graphe;
     vector<Sommet<VSommet> *> sommets;
     vector<Arete<VArete, VSommet> *> aretes;
-
+    int score;
 
     board()
     {
@@ -111,6 +111,16 @@ public:
         for (Sommet<VSommet> * s: sommets)
         {
             s->v.setGom(true);
+        }
+    }
+
+    void incrementScore()
+    {
+        score = 0;
+
+        for (Sommet<VSommet> * s: sommets)
+        {
+            score+=100 * (!s->v.isGom());
         }
     }
 

@@ -17,7 +17,7 @@ Partie::fantome3;
 
 
 
-Partie::Partie() :score(0), level(1)
+Partie::Partie() : level(1)
         {
     Texture texturesPacman = Texture(), texturesFantome1 = Texture(), texturesFantome2 = Texture(), texturesFantome3 = Texture();
     if (!texturesPacman.loadFromFile("imgpacman/TexturesPacman.png"))
@@ -138,7 +138,7 @@ void Partie::lancerPartie(FenetreGrapheSFML &window, Pacman &pacman, vector<Fant
             if(!pacman.getEtat())
                 window.fenetre.close();
         }
-        String s = "Score : " + to_string(score);
+        String s = "Score : " + to_string(B.score);
         scoreAffiche.setString(s);
         scoreAffiche.setCharacterSize(26);
         scoreAffiche.setColor(Color::White);

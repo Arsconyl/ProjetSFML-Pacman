@@ -13,7 +13,7 @@ Personnage::Personnage (Sommet<VSommet> *position, string nom, string image, Tex
                         float switchTime, float speed, TransfoAffine2D &t, int etat):
         Thing(position, image, nom, etat), animation(texture, imageCount, switchTime), speed(speed), row(0)
 {
-    this->getPosition()->v.setGom(false);
+    //this->getPosition()->v.setGom(false);
     body.setSize(Vector2f(64.0f, 64.0f));
     body.setPosition(vecteur2DToVector2f(t.applique(this->getPosition()->v.getPosition()) - Vecteur2D(32, 32)));
     //t = Texture();

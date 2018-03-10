@@ -19,5 +19,9 @@ Pacman::~Pacman(){}
 void Pacman::setPosition (Sommet<VSommet> *position, TransfoAffine2D &t)
 {
     Personnage::setPosition(position, t);
-    this->getPosition()->v.setGom(false);
+    if(this->getPosition()->v.isGom())
+    {
+        this->getPosition()->v.setGom(false);
+
+    }
 }

@@ -234,42 +234,66 @@ bool deplacement::gestionPartie (Pacman &pacman, vector<Fantome*> &fantomes, boa
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1)) //DownLeft
     {
         if (deplacementPacman(pacman, B, -3, true, t))
+        {
+            B.incrementScore();
             return (lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t));
+        }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2)) //Down
     {
         if(deplacementPacman(pacman, B, 0, false, t))
-            return lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t);
+        {
+            B.incrementScore();
+            return (lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t));
+        }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad3)) //DownRight
     {
         if(deplacementPacman(pacman, B, -1, false, t))
-            return lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t);
+        {
+            B.incrementScore();
+            return (lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t));
+        }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4)) //Left
     {
         if(deplacementPacman(pacman, B, -2, true, t))
-            return lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t);
+        {
+            B.incrementScore();
+            return (lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t));
+        }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6)) //Right
     {
         if(deplacementPacman(pacman, B, -2, false, t))
-            return lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t);
+        {
+            B.incrementScore();
+            return (lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t));
+        }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad7)) //UpLeft
     {
         if(deplacementPacman(pacman, B, -1, true, t))
-            return lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t);
+        {
+            B.incrementScore();
+            return (lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t));
+        }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad8)) //Up
     {
         if(deplacementPacman(pacman, B, 0, true, t))
-            return lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t);
+        {
+            B.incrementScore();
+            return (lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t));
+        }
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad9)) //UpRight
     {
         if(deplacementPacman(pacman, B, -3, false, t))
-            return lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t);
+        {
+            B.incrementScore();
+            return (lvlFantome(*fantomes[0], pacman, B, t) && lvlFantome(*fantomes[1], pacman, B, t) && lvlFantome(*fantomes[2], pacman, B, t));
+        }
     }
     /*if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1)) //DownLeft
     {

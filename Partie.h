@@ -24,7 +24,6 @@ public:
 
 private:
     Partie();
-    int score;
     int level;
    /* static Vecteur2D coinBG, coinHD;
     static board B;
