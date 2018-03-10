@@ -17,7 +17,20 @@ int main()
     float deltatime;
     Clock clock;
 
+    sf::Font font;
+    if (!font.loadFromFile("abaddon.ttf"))
+    {
+        // erreur...
+    }
+
     FenetreGrapheSFML window("PacmanSFML !", coinBG, coinHD, 1280, 720);
+
+    Text score;
+    score.setFont(font);
+    score.setString("Score");
+    score.setCharacterSize(18);
+    score.setFillColor(Color::White);
+    score.setPosition(vecteur2DToVector2f(window.t.applique(Vecteur2D(1.5, -0.75))));
 
     Texture texturesPacman = Texture(), texturesFantome1 = Texture(), texturesFantome2 = Texture(), texturesFantome3 = Texture();
     if (!texturesPacman.loadFromFile("imgpacman/TexturesPacman.png"))
@@ -62,6 +75,7 @@ int main()
         }
         window.fenetre.clear();
         B.graphe.dessine(window);
+        window.fenetre.draw(score);
         fantomes[0]->Update(deltatime);
         fantomes[0]->dessine(window);
         fantomes[1]->Update(deltatime);
