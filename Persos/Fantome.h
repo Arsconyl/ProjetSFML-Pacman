@@ -10,36 +10,36 @@
 #include "../World/board.h"
 
 
-template<class S, class T>
-class Fantome : public Personnage<S, T>
+
+class Fantome : public Personnage
 {
 public:
-    explicit Fantome<S, T> (Sommet<T> *position, string image, string nom, Texture *texture, Vector2u imageCount,
+    explicit Fantome (Sommet<VSommet> *position, string image, string nom, Texture *texture, Vector2u imageCount,
                             float switchTime, float speed, TransfoAffine2D t, int etat = 1);
-    Fantome<S, T>(Fantome &p);
+    Fantome(Fantome &p);
     virtual ~Fantome ();
 
-    void setPosition (Sommet<T> *position, Pacman<S,T> &pacman, TransfoAffine2D &t);
+    void setPosition (Sommet<VSommet> *position, Pacman &pacman, TransfoAffine2D &t);
 };
-template<class S, class T>
-Fantome<S, T>::Fantome(Fantome<S, T> &p):Personnage<S, T>(p){}
 
-template<class S, class T>
-Fantome<S, T>::Fantome (Sommet<T> *position, string nom, string image, Texture *texture, Vector2u imageCount,
-                        float switchTime, float speed, TransfoAffine2D t, int etat):Personnage<S, T>(position, image,
+Fantome::Fantome(Fantome &p):Personnage(p){}
+
+
+Fantome::Fantome (Sommet<VSommet> *position, string nom, string image, Texture *texture, Vector2u imageCount,
+                        float switchTime, float speed, TransfoAffine2D t, int etat):Personnage(position, image,
                                                                                                      nom, texture,
                                                                                                      imageCount,
                                                                                                      switchTime, speed,
                                                                                                      t, etat)
 {}
-template<class S, class T>
-Fantome<S, T>::~Fantome ()
+
+Fantome::~Fantome ()
 {};
 
-template<class S, class T>
-void Fantome<S, T>::setPosition (Sommet<T> *position, Pacman<S, T> &pacman, TransfoAffine2D &t)
+
+void Fantome::setPosition (Sommet<VSommet> *position, Pacman &pacman, TransfoAffine2D &t)
 {
-    Personnage<S, T>::setPosition(position, t);
+    Personnage::setPosition(position, t);
     if(this->position == pacman.getPosition())
         pacman.setEtat(false);
 }

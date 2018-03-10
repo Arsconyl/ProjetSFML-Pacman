@@ -12,8 +12,8 @@
 
 using namespace std;
 
-template<class S, class T>
-class Personnage : public Thing<S, T>
+
+class Personnage : public Thing
 {
 private:
     RectangleShape body;
@@ -23,9 +23,9 @@ private:
     Vector2f movement;
     Texture *texture;
 public:
-    explicit Personnage<S, T> (Sommet<T> *position, string image, string nom, Texture *texture, Vector2u imageCount,
+    explicit Personnage (Sommet<VSommet> *position, string image, string nom, Texture *texture, Vector2u imageCount,
                                float switchTime, float speed, TransfoAffine2D &t, int etat = 1);
-    Personnage<S, T>(Personnage &p);
+    Personnage(Personnage &p);
     virtual ~Personnage ();
 
     void Update (float deltaTime);
@@ -34,17 +34,17 @@ public:
 
     Texture *getTexture () const;
 
-    virtual void setPosition (Sommet<T> *position, TransfoAffine2D t);
+    virtual void setPosition (Sommet<VSommet> *position, TransfoAffine2D t);
 };
-template<class S, class T>
-Personnage<S, T>::Personnage (Personnage<S, T> &p):Thing<S, T>(p), body(p.body), animation(p.animation), row(p.row),
+
+Personnage::Personnage (Personnage &p):Thing(p), body(p.body), animation(p.animation), row(p.row),
                                                    speed(p.speed), movement(p.movement), texture(p.texture)
 {};
 
-template<class S, class T>
-Personnage<S, T>::Personnage (Sommet<T> *position, string nom, string image, Texture *texture, Vector2u imageCount,
+
+Personnage::Personnage (Sommet<VSommet> *position, string nom, string image, Texture *texture, Vector2u imageCount,
                               float switchTime, float speed, TransfoAffine2D &t, int etat):
-        Thing<S, T>(position, image, nom, etat), animation(texture, imageCount, switchTime), speed(speed), row(0)
+        Thing(position, image, nom, etat), animation(texture, imageCount, switchTime), speed(speed), row(0)
 {
     this->getPosition()->v.setGom(false);
     body.setSize(Vector2f(64.0f, 64.0f));
@@ -53,11 +53,11 @@ Personnage<S, T>::Personnage (Sommet<T> *position, string nom, string image, Tex
     //if(!t.loadFromFile("imgpacman/Textures.png")) throw ("Erreur lors du chargement des textures.");
     body.setTexture(texture);
 }
-template<class S, class T>
-Personnage<S, T>::~Personnage(){};
 
-template<class S, class T>
-void Personnage<S, T>::Update (float deltaTime)
+Personnage::~Personnage(){};
+
+
+void Personnage::Update (float deltaTime)
 {
     movement.x = 0.0f;
     movement.y = 0.0f;
@@ -153,22 +153,22 @@ void Personnage<S, T>::Update (float deltaTime)
 
 }
 
-template<class S, class T>
-const void Personnage<S, T>::dessine (FenetreGrapheSFML &window)
+
+const void Personnage::dessine (FenetreGrapheSFML &window)
 {
     window.fenetre.draw(body);
 }
 
-template<class S, class T>
-Texture *Personnage<S, T>::getTexture () const
+
+Texture *Personnage::getTexture () const
 {
     return texture;
 }
 
-template<class S, class T>
-void Personnage<S, T>::setPosition (Sommet<T> *position, TransfoAffine2D t)
+
+void Personnage::setPosition (Sommet<VSommet> *position, TransfoAffine2D t)
 {
-    Thing<S, T>::setPosition(position);
+    Thing::setPosition(position);
     body.setPosition(vecteur2DToVector2f(t.applique(this->getPosition()->v.getPosition()) - Vecteur2D(32, 32)));
 }
 

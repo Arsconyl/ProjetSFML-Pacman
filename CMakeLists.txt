@@ -15,7 +15,7 @@ add_executable(ProjetSFML-Pacman
         Persos/Pacman.h Persos/Fantome.h Persos/Personnage.h Persos/deplacement.h Persos/Animation.cpp
         Persos/Animation.h
 
-        World/board.h World/Gom.h World/Thing.h
+        World/board.h World/Thing.h
 
         Erreur.h
 

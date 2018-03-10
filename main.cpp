@@ -29,9 +29,9 @@ int main()
     if (!texturesFantome3.loadFromFile("imgpacman/Ghost-Y.png"))
         throw ("Erreur lors du chargement des textures.");
 
-    Pacman<VArete, VSommet> pacman(B.sommets[0], "Pacman", "pacmanRight", &texturesPacman, Vector2u(3, 8), 0.125f,
+    Pacman pacman(B.sommets[0], "Pacman", "pacmanRight", &texturesPacman, Vector2u(3, 8), 0.125f,
                                    100.0, window.t, 1);
-    Fantome<VArete, VSommet> fantome1(B.sommets[24], "ghost1", "ghost1", &texturesFantome1, Vector2u(3, 8), 0.125f,
+    Fantome fantome1(B.sommets[24], "ghost1", "ghost1", &texturesFantome1, Vector2u(3, 8), 0.125f,
                                       100.0, window.t, 1),
             fantome2(B.sommets[23], "ghost2", "ghost2", &texturesFantome2, Vector2u(3, 8), 0.125f, 100.0, window.t, 1),
             fantome3(B.sommets[22], "ghost3", "ghost3", &texturesFantome3, Vector2u(3, 8), 0.125f, 100.0, window.t, 1);

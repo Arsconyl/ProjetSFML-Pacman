@@ -10,22 +10,21 @@
 
 using namespace std;
 
-template<class S, class T>
 class Thing
 {
 public:
-    Sommet<T> *position;
+    Sommet<VSommet> *position;
 private:
     int etat;
     string nom, image;
 public:
-    Sommet<T>* getPosition () const;
+    Sommet<VSommet>* getPosition () const;
 
-    virtual void setPosition (Sommet<T> *position);
+    virtual void setPosition (Sommet<VSommet> *position);
 public:
-    explicit Thing<S, T>(Sommet<T> *position, string image, string nom, int etat=1);
-    Thing<S, T>(Thing<S, T> &p);
-    virtual ~Thing<S, T> ();
+    explicit Thing(Sommet<VSommet> *position, string image, string nom, int etat=1);
+    Thing(Thing &p);
+    virtual ~Thing ();
 
     inline void setEtat(bool etat);
     inline int getEtat() const;
@@ -37,51 +36,51 @@ public:
     virtual const void dessine (FenetreGrapheSFML &window) = 0;
 };
 
-template<class S, class T>
-Thing<S, T>::Thing(Thing<S, T> &p):position(p.position), image(p.image), nom(p.nom), etat(p.etat){}
 
-template<class S, class T>
-Thing<S, T>::Thing(Sommet<T> *position, string image, string nom, int etat):position(position), image(image), nom(nom), etat(etat){}
+Thing::Thing(Thing &p):position(p.position), image(p.image), nom(p.nom), etat(p.etat){}
 
-template<class S, class T>
-Thing<S, T>::~Thing<S, T>(){};
 
-template<class S, class T>
-inline void Thing<S, T>::setEtat(bool etat)
+Thing::Thing(Sommet<VSommet> *position, string image, string nom, int etat):position(position), image(image), nom(nom), etat(etat){}
+
+
+Thing::~Thing(){};
+
+
+inline void Thing::setEtat(bool etat)
 {
-    Thing<S, T>::etat = etat;
+    Thing::etat = etat;
 }
-template<class S, class T>
-void Thing<S, T>::setNom(const string &nom)
+
+void Thing::setNom(const string &nom)
 {
-    Thing<S, T>::nom = nom;
+    Thing::nom = nom;
 }
-template<class S, class T>
-inline int Thing<S, T>::getEtat () const
+
+inline int Thing::getEtat () const
 {
     return etat;
 }
 
-template<class S, class T>
-inline string Thing<S, T>::getNom () const
+
+inline string Thing::getNom () const
 {
     return nom;
 }
 
-template<class S, class T>
-const string &Thing<S, T>::getImage () const
+
+const string &Thing::getImage () const
 {
     return image;
 }
 
-template<class S, class T>
-void Thing<S, T>::setImage (const string &sprite)
+
+void Thing::setImage (const string &sprite)
 {
-    Thing<S, T>::image = sprite;
+    Thing::image = sprite;
 }
 
-/*template<class S, class T>
-const void Thing<S, T>::dessine (FenetreGrapheSFML &window)
+/*
+const void Thing::dessine (FenetreGrapheSFML &window)
 {
     sf::Image img;
     img.loadFromFile("images/" + image + ".png");
@@ -97,16 +96,16 @@ const void Thing<S, T>::dessine (FenetreGrapheSFML &window)
     window.fenetre.draw(sprite);
 }*/
 
-template<class S, class T>
-Sommet<T>* Thing<S, T>::getPosition () const
+
+Sommet<VSommet>* Thing::getPosition () const
 {
     return position;
 }
 
-template<class S, class T>
-void Thing<S, T>::setPosition (Sommet<T> *position)
+
+void Thing::setPosition (Sommet<VSommet> *position)
 {
     this->position = position;
 }
 
-#endif //PROJETSFML_Thing<S, T>_GOM_H
+#endif //PROJETSFML_Thing_GOM_H
