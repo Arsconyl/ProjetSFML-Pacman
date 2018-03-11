@@ -116,7 +116,7 @@ void Partie::lancerPartie(FenetreGrapheSFML &window, Pacman &pacman, vector<Fant
     gameOver.setString("Game Over");
     gameOver.setCharacterSize(72);
     gameOver.setFont(font);
-    gameOver.setFillColor(Color::White);
+    gameOver.setColor(Color::White);
     gameOver.setPosition(vecteur2DToVector2f(window.t.applique(Vecteur2D(0.5, 1.5))));
     srand(static_cast<unsigned int>(time(NULL)));
     float deltatime;
