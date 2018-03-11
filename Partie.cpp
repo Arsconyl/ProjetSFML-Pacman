@@ -66,8 +66,6 @@ void Partie::niveau2(Pacman &pacman,vector<Fantome*> fantomes, board &B, Fenetre
         cout << "Niveau 2 terminé" <<endl;
         level++;
         B.reinitialiserGommes();
-
-        niveau3(pacman,fantomes,B,window);
     }
 
 }
@@ -84,7 +82,6 @@ void Partie::niveau1(Pacman &pacman,vector<Fantome*> fantomes, board &B, Fenetre
         cout << "Niveau 1 terminé" <<endl;
         level++;
         B.reinitialiserGommes();
-        niveau2(pacman,fantomes,B,window);
     }
 
 }
@@ -107,13 +104,18 @@ void Partie::lancerPartie(FenetreGrapheSFML &window, Pacman &pacman, vector<Fant
                      board &B) {
 
     Font font;
-    Text scoreAffiche;
+    Text scoreAffiche, gameOver;
 
     if (!font.loadFromFile("KINKEE.TTF"))
     {
         throw ("Erreur lors du chargement de la police du score");
     }
     scoreAffiche.setFont(font);
+    gameOver.setString("Game Over");
+    gameOver.setCharacterSize(72);
+    gameOver.setFont(font);
+    gameOver.setFillColor(Color::White);
+    gameOver.setPosition(vecteur2DToVector2f(window.t.applique(Vecteur2D(0.5, 1.5))));
     srand(static_cast<unsigned int>(time(NULL)));
     float deltatime;
     Clock clock;
@@ -136,7 +138,13 @@ void Partie::lancerPartie(FenetreGrapheSFML &window, Pacman &pacman, vector<Fant
             }
             gestionLevel(pacman,fantomes,B,window);
             if(!pacman.getEtat())
+            {
+                //window.fenetre.clear();
+                window.fenetre.draw(gameOver);
+                window.fenetre.display();
+                sleep(seconds(2.0f));
                 window.fenetre.close();
+            }
         }
         String s = "Score : " + to_string(B.score);
         scoreAffiche.setString(s);
@@ -152,11 +160,9 @@ void Partie::lancerPartie(FenetreGrapheSFML &window, Pacman &pacman, vector<Fant
         fantomes[1]->dessine(window);
         fantomes[2]->Update(deltatime);
         fantomes[2]->dessine(window);
-        //fantome2.dessine(window);
-        //fantome3.dessine(window);
-        //fantome4.dessine(window);
         pacman.Update(deltatime);
         pacman.dessine(window);
+        //window.fenetre.draw(gameOver);
         window.fenetre.display();
     }
 }

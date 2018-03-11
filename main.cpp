@@ -9,13 +9,6 @@
 using namespace std;
 using namespace sf;
 
-int score = 0;
-
-void incrementScore()
-{
-    score +=100;
-}
-
 
 int main()
 {

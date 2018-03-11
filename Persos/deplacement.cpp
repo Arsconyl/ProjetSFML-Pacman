@@ -359,15 +359,12 @@ bool deplacement::gestionDeplacementFantomeLvl1 (Fantome &fantome, Pacman &pacma
 
 bool deplacement::gestionDeplacementFantomeLvl2 (Fantome &fantome, Pacman &pacman, board &B, TransfoAffine2D &t)
 {
-    if (!aVuPacmanParDir(B, fantome, pacman, t))
+    /*if (!aVuPacmanParDir(B, fantome, pacman, t))
     {
         if (!aVuPacmanParTemp(B, fantome, pacman, t))
             return gestionDeplacementFantomeLvl1(fantome, pacman, B, t);
-        else
-            return false;
-    }
-    else
-        return false;
+    }*/
+    return aVuPacmanParDir(B, fantome, pacman, t) || aVuPacmanParTemp(B, fantome, pacman, t) || gestionDeplacementFantomeLvl1(fantome, pacman, B, t);
 }
 
 bool deplacement::gestionDeplacementFantomeLvl3 (Fantome &fantome, Pacman &pacman, board &B, TransfoAffine2D &t) {

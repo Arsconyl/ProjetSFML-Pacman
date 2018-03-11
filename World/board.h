@@ -116,7 +116,9 @@ public:
 
     void incrementScore()
     {
-        score = 0;
+        score = (score / 2500) * 2500;
+        if(score == 1)
+            score = 0;
 
         for (Sommet<VSommet> * s: sommets)
         {

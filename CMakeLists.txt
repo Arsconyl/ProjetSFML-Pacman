@@ -12,7 +12,7 @@ add_executable(ProjetSFML-Pacman
         Screen/backgroundRender.h Screen/FenetreSFML.h Screen/FenetreGrapheSFML.h Screen/AlgebreLineaire.h
         Screen/Matrice22.h Screen/TransfoAffine2D.h Screen/Vecteur2D.h Screen/Reels.h
 
-        Persos/Pacman.h Persos/Fantome.h Persos/Personnage.h Persos/deplacement.h Persos/Animation.cpp
+        Persos/Pacman.h Persos/Fantome.h Persos/Personnage.h Persos/deplacement.h Persos/deplacement.cpp Persos/Animation.cpp
         Persos/Animation.h
 
         World/board.h World/Thing.h

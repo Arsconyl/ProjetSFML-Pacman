@@ -10,6 +10,9 @@
 
 using namespace std;
 
+/**
+ *
+ */
 class Thing
 {
 public:
