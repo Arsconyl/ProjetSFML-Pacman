@@ -5,6 +5,7 @@
 #include "Persos/Fantome.h"
 #include "Persos/deplacement.h"
 #include "Partie.h"
+#include <SFML/Audio.hpp>
 
 using namespace std;
 using namespace sf;
@@ -95,7 +96,10 @@ int main()
     Vecteur2D coinHD(5, 5);
     board B;
     FenetreGrapheSFML window("PacmanSFML !", coinBG, coinHD, 1280, 720);
-
+    sf::Music intro;
+    if (!intro.openFromFile("Pac-Man-Start-Up-Noise.wav"))
+        throw ("Erreur lors du chargement de l intro.");
+    intro.play();
     Texture texturesPacman = Texture(), texturesFantome1 = Texture(), texturesFantome2 = Texture(), texturesFantome3 = Texture();
     if (!texturesPacman.loadFromFile("imgpacman/TexturesPacman.png"))
         throw ("Erreur lors du chargement des textures.");

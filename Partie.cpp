@@ -6,6 +6,7 @@
 #include "Persos/Pacman.h"
 #include "Persos/Fantome.h"
 #include "Persos/deplacement.h"
+#include <SFML/Audio.hpp>
 
 /*
 Partie::pacman;
@@ -104,6 +105,7 @@ void Partie::lancerPartie(FenetreGrapheSFML &window, Pacman &pacman, vector<Fant
                      board &B) {
 
     Font font;
+
     Text scoreAffiche, gameOver;
 
     if (!font.loadFromFile("KINKEE.TTF"))
@@ -121,6 +123,7 @@ void Partie::lancerPartie(FenetreGrapheSFML &window, Pacman &pacman, vector<Fant
     Clock clock;
     while (window.fenetre.isOpen())
     {
+
 
         sf::Event event{};
         deltatime = clock.restart().asSeconds();
@@ -140,12 +143,19 @@ void Partie::lancerPartie(FenetreGrapheSFML &window, Pacman &pacman, vector<Fant
             if(!pacman.getEtat())
             {
                 //window.fenetre.clear();
+                sf::Music fin;
+                if (!fin.openFromFile("pac-man-end-game.wav"))
+                    throw ("Erreur lors du chargement de la musique de fin.");
+                fin.play();
                 window.fenetre.draw(gameOver);
                 window.fenetre.display();
                 sleep(seconds(2.0f));
                 window.fenetre.close();
             }
         }
+
+
+
         String s = "Score : " + to_string(B.score);
         scoreAffiche.setString(s);
         scoreAffiche.setCharacterSize(26);
